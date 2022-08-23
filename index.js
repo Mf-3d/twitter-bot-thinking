@@ -4,8 +4,18 @@ const emotion = require('./main/emotion');
 const fs = require('fs');
 const schedule = require('node-schedule');
 const express = require('express');
+const GithubWebHook = require('express-github-webhook');
+const webhookHandler = GithubWebHook({ path: '/webhook', secret: process.env.github_webhook_secret });
 
 const app = express();
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true })); 
+app.use(webhookHandler);
+
+webhookHandler.on('event', function (repo, data) {
+  console.debug(data);
+});
 
 async function start() {
   console.log('サーバーが起動しました');
