@@ -14,7 +14,12 @@ app.use(express.urlencoded({ extended: true }));
 app.use(webhookHandler);
 
 webhookHandler.on('*', function (type, repo, data) {
-  console.log('Repo:', repo, 'Data:', data);
+  data.commits.forEach((commit) => {
+    twitter.tweet(`
+    "${commit.message}"がコミットされました🤔
+    ${commit.url}
+    `);
+  });
 });
 
 async function start() {
