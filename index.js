@@ -112,7 +112,7 @@ function tweet(replyTweet) {
   if(word[4][word[4].length - 1] !== 'る' && word[5][0] === 'た') word[5][0] = 'か';
   if(word[4][word[4].length - 1] === 'よ' && word[5][0] === 'ま') word[5][0] = 'で';
   if(word[1] === 'て' && word[3] === 'から') word[1] === 'が';
-  if(word[4][word[4].length - 1] === 'わ' && word[5].indexOf('れた') === -1) word[5] = 'れた';
+  if(word[4][word[4].length - 1] === 'わ' && word[5][0] === 'た') word[5] = 'れた';
   if(word[1][word[1].length - 1] === 'て' && word[3][0] === 'に') word[5] = 'は';
   if(word[4][word[4].length - 1] === '寝' && word[5] === 'う') word[5] = 'る';
   if(word[4][word[4].length - 1] === 'よ' && word[5][0] === 'た') word[5] = 'う';
@@ -130,6 +130,8 @@ function tweet(replyTweet) {
     word[1] = 'は';
     word[3] = 'で';
   }
+  if(word[5][word[5].length - 1] === 'っ') word[5][word[5].length] = 'た';  
+  if(word[3][word[3].length - 1] === 'か') word[3] = 'が'; 
   
   let template = `
   123456🤔
@@ -169,7 +171,7 @@ function getData(pos = '名詞') {
 start();
 
 (function loop() {
-  let Rand = Math.round(Math.random() * (10 - 3)) + 1;
+  let Rand = Math.round(Math.random() * (18 - 7)) + 7;
   setTimeout(function() {
     learning();
     
