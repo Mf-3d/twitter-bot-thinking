@@ -1,5 +1,4 @@
 var http = require('http');
-require('dotenv').config();
 
 var base_url = "http://ap.mextractr.net/ma9/emotion_analyzer";
 var apikey = process.env.metadata_api_key; //ここは変えてください

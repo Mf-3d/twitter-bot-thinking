@@ -2,6 +2,7 @@ const twitter = require('./main/tweet');
 const generate = require('./main/generate');
 const emotion = require('./main/emotion');
 const fs = require('fs');
+const schedule = require('node-schedule');
 
 async function start() {
   console.log('サーバーが起動しました');
@@ -10,12 +11,18 @@ async function start() {
   //   return token.surface_form
   // });
   // console.log(tokenArr);
+
+  setTimeout(() => {
+    learning();
+    tweet();
+  }, 3000);
 }
 
 async function learning() {
   /** @type {{text: string}[]} */let result = [];
 
-  let timeline = await twitter.getUserTimeline('1033535983189254145');
+  let timeline = await twitter.getUserTimeline('1421303312796639232');
+  // let timeline = await twitter.getTimeline();
   /** @type {import('twitter-api-v2').TweetV2[]} */let filtered_timeline = [];
 
   timeline.forEach(tweet => {
@@ -64,7 +71,7 @@ async function learning() {
   fs.writeFileSync(`${__dirname}/dictonary.db`, JSON.stringify(saveData));
 }
 
-function tweet() {
+function tweet(replyTweet) {
   let noun = getData('名詞');
   let verb = getData('動詞');
   let particle = getData('助詞');
@@ -90,9 +97,13 @@ function tweet() {
   if(word[4][word[4].length - 1] === '寝' && word[5] === 'う') word[5] = 'る';
   if(word[4][word[4].length - 1] === 'よ' && word[5][0] === 'た') word[5] = 'う';
   if(word[4].includes('った') && word[5][0] === 'い') word[5][0] = '';
-
+  if(word[4][word[4].length - 1] === 'わ' && word[5][0] === 'は') word[5] = '';
+  if(word[4][word[4].length - 1] === 'ら' && word[5][0] === 'う') word[5] = 'す';
+  if(word[1][word[1].length - 1] === 'の' && word[3][0] === 'の') word[3] = 'を';
+  if(word[4].includes('た') && word[5][0] === 'ら') word[5][0] = '';
+  
   let template = `
-  123456（？）
+  123456🤔
   ※ボットのテストです
   `;
 
@@ -104,8 +115,11 @@ function tweet() {
   .replace('5', word[4]) // 動詞
   .replace('6', word[5]); // 助動詞
 
-  console.log(template);
-  // twitter.tweet(template);
+  if(replyTweet) {
+    twitter.reply(template, replyTweet);
+    return;
+  }
+  twitter.tweet(template);
 }
 
 function getData(pos = '名詞') {
@@ -124,9 +138,36 @@ function getData(pos = '名詞') {
 
 start();
 
-// learning();
-tweet();
-// setInterval(() => {
-//   learning();
-//   tweet();
-// }, 5 * 60000);
+(function loop() {
+  let Rand = Math.round(Math.random() * (10 - 1)) + 1;
+  setTimeout(function() {
+    learning();
+    
+    let mode = Math.floor(Math.random() * (10 - 1)) + 1;
+
+    if(mode === 10) {
+      twitter.tweet('ツイートを学習しています🤔');
+      return;
+    }
+    tweet();
+    loop();
+  }, Rand * 60000);
+})();
+
+const job1 = schedule.scheduleJob('0 0 21 * * *', () => {
+  twitter.tweet('おはよう🤔')
+});
+
+const job2 = schedule.scheduleJob('0 0 3 * * *', () => {
+  twitter.tweet('12時🤔');
+});
+
+const job3 = schedule.scheduleJob('0 34 18 * * *', () => {
+  twitter.tweet('33-4🤯');
+});
+
+twitter.event.on('replied', (reply) => {
+  console.log('リプされました', reply.data.id);
+  
+  tweet(reply.data.id);
+});

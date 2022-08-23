@@ -1,12 +1,16 @@
 const twitter = require('twitter-api-v2');
-require('dotenv').config();
+const stream = require('./stream');
+const EventEmitter = require("events");
+const emitter = new EventEmitter();
 
 const client = new twitter.TwitterApi({
-  appKey: process.env.consumer_key,
-  appSecret: process.env.consumer_secret,
-  accessToken: process.env.access_token_key,
-  accessSecret: process.env.access_token_secret
-})
+  appKey: process.env['twitter_consumer_key'],
+  appSecret: process.env['twitter_consumer_secret'],
+  accessToken: process.env['twitter_access_token_key'],
+  accessSecret: process.env['twitter_access_token_secret']
+});
+
+
 
 module.exports = {
   /**
@@ -48,5 +52,23 @@ module.exports = {
         'author_id'
       ]
     });
+  },
+
+  event: emitter,
+
+  async reply(text, tweetId) {
+    await client.v2.reply(
+      text,
+      tweetId,
+    );
   }
 }
+
+
+
+
+const streamURL = 'https://api.twitter.com/2/tweets/sample/stream';
+stream.on('replied', (tweet) => {
+  emitter.emit('replied', tweet);
+  console.log('replied')
+});
