@@ -13,8 +13,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true })); 
 app.use(webhookHandler);
 
-webhookHandler.on('event', function (repo, data) {
-  console.log(data);
+webhookHandler.on('*', function (repo, data) {
+  console.log(repo, data);
 });
 
 async function start() {
