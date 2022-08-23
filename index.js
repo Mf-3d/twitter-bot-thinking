@@ -14,6 +14,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(webhookHandler);
 
 webhookHandler.on('*', function (type, repo, data) {
+  if(type !== 'push') return;
+  
   data.commits.forEach((commit) => {
     twitter.tweet(`
     "${commit.message}"がコミットされました🤔
