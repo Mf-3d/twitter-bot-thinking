@@ -70,9 +70,6 @@ module.exports = {
 }
 
 
-
-
-const streamURL = 'https://api.twitter.com/2/tweets/sample/stream';
 stream.on('replied', (tweet) => {
   emitter.emit('replied', tweet);
   console.log('replied')
