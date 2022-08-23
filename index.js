@@ -119,6 +119,7 @@ function tweet(replyTweet) {
   if(word[4][word[4].length - 1] === 'ら' && word[5][0] === 'う') word[5] = 'す';
   if(word[1][word[1].length - 1] === 'の' && word[3][0] === 'の') word[3] = 'を';
   if(word[4].includes('た') && word[5][0] === 'ら') word[5][0] = '';
+  if(word[4][word[4].length - 1]　 !== 'ま' && word[5][0] === 'う') word[5][0] = 'た';
   
   let template = `
   123456🤔
@@ -157,16 +158,24 @@ function getData(pos = '名詞') {
 start();
 
 (function loop() {
-  let Rand = Math.round(Math.random() * (10 - 1)) + 1;
+  let Rand = Math.round(Math.random() * (10 - 3)) + 1;
   setTimeout(function() {
     learning();
     
     let mode = Math.floor(Math.random() * (10 - 1)) + 1;
 
-    if(mode === 10) {
+    if(mode === 9) {
       twitter.tweet('ツイートを学習しています🤔');
+      loop();
       return;
     }
+
+    if(mode === 7) {
+      twitter.tweet('🐱');
+      loop();
+      return;
+    }
+    
     tweet();
     loop();
   }, Rand * 60000);
