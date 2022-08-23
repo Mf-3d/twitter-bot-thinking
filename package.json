@@ -1,0 +1,25 @@
+{
+  "name": "thinking-twitter-bot",
+  "version": "0.1.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Mf-3d/thinking-twitter-bot.git"
+  },
+  "keywords": [],
+  "author": "thinking",
+  "bugs": {
+    "url": "https://github.com/Mf-3d/thinking-twitter-bot/issues"
+  },
+  "homepage": "https://github.com/Mf-3d/thinking-twitter-bot#readme",
+  "dependencies": {
+    "dotenv": "^16.0.1",
+    "kuromoji": "^0.1.2",
+    "twitter-api-v2": "^1.12.5"
+  }
+}
