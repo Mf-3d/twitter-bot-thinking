@@ -14,7 +14,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(webhookHandler);
 
 webhookHandler.on('*', function (repo, data) {
-  console.log(repo, data);
+  console.log('Repo:', repo, 'Data:', data);
 });
 
 async function start() {
