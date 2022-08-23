@@ -3,6 +3,9 @@ const generate = require('./main/generate');
 const emotion = require('./main/emotion');
 const fs = require('fs');
 const schedule = require('node-schedule');
+const express = require('express');
+
+const app = express();
 
 async function start() {
   console.log('サーバーが起動しました');
@@ -170,4 +173,12 @@ twitter.event.on('replied', (reply) => {
   console.log('リプされました', reply.data.id);
   
   tweet(reply.data.id);
+});
+
+app.get('/', (req, res) => {
+  res.send('Twitter account: @thinkingService');
+});
+
+app.listen(3000, () => {
+  console.log('Expressサーバーが起動しました');
 });
