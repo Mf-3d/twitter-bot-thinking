@@ -136,6 +136,7 @@ function tweet(replyTweet) {
 
   if(replyTweet) {
     twitter.reply(template, replyTweet);
+    twitter.like(replyTweet);
     return;
   }
   twitter.tweet(template);
@@ -162,7 +163,7 @@ start();
   setTimeout(function() {
     learning();
     
-    let mode = Math.floor(Math.random() * (10 - 1)) + 1;
+    let mode = Math.floor(Math.random() * (20 - 1)) + 1;
 
     if(mode === 9) {
       twitter.tweet('ツイートを学習しています🤔');
@@ -172,6 +173,12 @@ start();
 
     if(mode === 7) {
       twitter.tweet('🐱');
+      loop();
+      return;
+    }
+
+    if(mode === 1) {
+      twitter.tweet('実はこのボット、mf7cliの自由研究のために開発されたんです🤔');
       loop();
       return;
     }

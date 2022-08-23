@@ -59,8 +59,13 @@ module.exports = {
   async reply(text, tweetId) {
     await client.v2.reply(
       text,
-      tweetId,
+      tweetId
     );
+  },
+
+  async like(tweetId) {
+    let userId = (await client.v2.userByUsername('thinkingService')).data.id;
+    await client.v2.like(userId, tweetId)
   }
 }
 
