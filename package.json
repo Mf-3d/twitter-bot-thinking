@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/Mf-3d/thinking-twitter-bot#readme",
   "dependencies": {
+    "discord-webhook-node": "^1.1.8",
     "dotenv": "^16.0.1",
     "express": "^4.18.1",
     "express-github-webhook": "^1.0.6",

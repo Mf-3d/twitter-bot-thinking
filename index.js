@@ -4,8 +4,14 @@ const emotion = require('./main/emotion');
 const fs = require('fs');
 const schedule = require('node-schedule');
 const express = require('express');
+const { Webhook } = require('discord-webhook-node');
 const GithubWebHook = require('express-github-webhook');
 
+const hook = new Webhook(process.env.discord_webhook);
+
+hook.setUsername('thinking Bot（仮）のTwitter通知');
+hook.setAvatar('https://pbs.twimg.com/profile_images/1561649021084913664/1CZezFH3_400x400.jpg');
+ 
 const webhookHandler = GithubWebHook({ path: '/webhook', secret: process.env.github_webhook_secret });
 const banned_word = require('./banned_word.json');
 
@@ -36,14 +42,13 @@ webhookHandler.on('*', function (type, repo, data) {
 
 async function start() {
   console.log('サーバーが起動しました');
-
+  hook.send("鯖が起動したぞ");
   // const tokenArr = (await generate.tokenize('私は定期的にツイートを学習します。')).map((token)=>{
   //   return token.surface_form
   // });
   // console.log(tokenArr);
 
   setTimeout(() => {
-    learning();
     tweet();
   }, 3000);
 }
@@ -51,7 +56,7 @@ async function start() {
 async function learning() {
   /** @type {{text: string}[]} */let result = [];
 
-  let timeline = await twitter.getUserTimeline('1421399845743460353');
+  let timeline = await twitter.getUserTimeline('1367151006824296451');
   // let timeline = await twitter.getTimeline();
   /** @type {import('twitter-api-v2').TweetV2[]} */let filtered_timeline = [];
 
@@ -66,7 +71,7 @@ async function learning() {
 
   let tweet_tokens = await generate.tokenize(filtered_timeline[target].text);
   let tweet_tokens2 = await generate.tokenize(filtered_timeline[target2].text);
-
+  
   tweet_tokens.forEach(async (tweet_token) => {
     if(result.length >= 7) return;
     if(tweet_token.surface_form.match(/@\w+/g)) return;
@@ -82,6 +87,7 @@ async function learning() {
     if(result.length >= 7) return;
     if(tweet_token.surface_form.match(/@\w+/g)) return;
     if(isIncludes(banned_word.banned, tweet_token.surface_form)) return;
+    
     result[result.length] = {
       text: tweet_token.surface_form,
       pos: tweet_token.pos
@@ -144,7 +150,11 @@ function tweet(replyTweet) {
   if(word[5][word[5].length - 1] === 'っ') word[5][word[5].length] = 'た';  
   if(word[3][word[3].length - 1] === 'か') word[3] = 'が'; 
   if(word[1][word[1].length - 1] === 'に' && word[3][word[1].length - 1] === 'に') word[3] = 'が'; 
-  if(word[5][word[5].length - 1] === 'る' && word[5][0] === 'た') word[5] = 'ん';  
+  if(word[4][word[4].length - 1] === 'る' && word[5][0] === 'た') word[5] = 'ん';  
+  if(word[1] === word[3]) word[3] = 'で';  
+  if(word[4][word[4].length - 1] === 'う' && word[5][0] === 'た') word[4][word[4].length - 1] = 'っ';
+  if(word[5][word[5].length - 1] === 'っ') word[5][word[5].length] = 'て';
+  
   let template = `
   123456🤔
   ※ボットのテストです
@@ -162,6 +172,8 @@ function tweet(replyTweet) {
     tweet(replyTweet);
     return;
   }
+
+  hook.send(`\`\`\`${template}\`\`\`をツイートします🤔`);
   
   if(replyTweet) {
     twitter.reply(template, replyTweet);
@@ -169,8 +181,6 @@ function tweet(replyTweet) {
     return;
   }
   twitter.tweet(template);
-
-  
 }
 
 function getData(pos = '名詞') {
@@ -192,8 +202,6 @@ start();
 (function loop() {
   let Rand = Math.round(Math.random() * (18 - 7)) + 7;
   setTimeout(function() {
-    learning();
-    
     let mode = Math.floor(Math.random() * (60 - 1)) + 1;
 
     if(mode === 9) {
@@ -219,6 +227,13 @@ start();
   }, Rand * 60000);
 })();
 
+(function loop2() {
+  setTimeout(function() {
+    learning();
+    loop2();
+  }, 0.25 * 60 * 60000);
+})();
+
 const job1 = schedule.scheduleJob('0 0 21 * * *', () => {
   twitter.tweet('おはよう🤔')
 });
@@ -233,7 +248,23 @@ const job3 = schedule.scheduleJob('0 34 18 * * *', () => {
 
 twitter.event.on('replied', (reply) => {
   console.log('リプされました', reply.data.id);
-  
+
+  if(reply.data.text.includes('waryu')) {
+    let word = ['w', 'a', 'r', 'y', 'u'];
+    let rnd = [
+      Math.floor(Math.random() * ((word.length - 1) - 1)) + 1, 
+      Math.floor(Math.random() * ((word.length - 1) - 1)) + 1,
+      Math.floor(Math.random() * ((word.length - 1) - 1)) + 1, 
+      Math.floor(Math.random() * ((word.length - 1) - 1)) + 1, 
+      Math.floor(Math.random() * ((word.length - 1) - 1)) + 1
+    ];
+
+    let waryu = `${word[rnd[0]]}${word[rnd[1]]}${word[rnd[2]]}${word[rnd[3]]}${word[rnd[4]]}`
+
+    twitter.like(reply.data.id);
+    twitter.reply(waryu, reply.data.id);
+    return;
+  }
   tweet(reply.data.id);
 });
 
