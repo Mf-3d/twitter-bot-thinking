@@ -2,23 +2,11 @@
 
 ## File
 
-### .vscode/setting.json
-
-vs codeの設定
-
-### main/emotion.js
-### /generate.js
-### /learming.js
-### /tweet.js
-
-emotion=データを取得
-<br>
-generate=kuromojiの設定？
-<br>
-learming=いまんとこなし
-<br>
-tweet=タイムラインを取得してtwitterのAPIで処理？
-<br>
-
-
-
+|ファイル名             |説明               |
+|--------------------|-------------------|
+|.vscode/setting.json|VS Codeの設定       |
+|main/emotion.js     |感情データを取得      |
+|main/generate.js    |kuromojiで日本語解析 |
+|main/learning.js    |いまんとこなし         |
+|main/tweet.js       |Twitter API        |
+|main/stream.js      |Twitterのリプライ取得  |
