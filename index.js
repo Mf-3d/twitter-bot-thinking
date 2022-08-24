@@ -154,6 +154,9 @@ function tweet(replyTweet) {
   if(word[1] === word[3]) word[3] = 'で';  
   if(word[4][word[4].length - 1] === 'う' && word[5][0] === 'た') word[4][word[4].length - 1] = 'っ';
   if(word[1][word[1].length - 1] === 'て' && word[3][0] === 'を') word[3] = 'で';
+  if(word[4][word[4].length - 1]　 === 'っ' && word[5][0] === 'ま') word[5] = 'たわ';
+  if(word[5][word[5].length - 1] === 'し') word[5] = 'した';
+  if(word[4][word[4].length - 1]　 === '寝' && word[5][0] === 'だ') word[5] = 'た';
   
   let template = `
   123456🤔
