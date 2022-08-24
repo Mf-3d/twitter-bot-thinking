@@ -109,19 +109,26 @@ async function learning() {
 }
 
 function tweet(replyTweet) {
+  let useTemplateId = Math.floor(Math.random() * (1 - 0) + 0); 
   let noun = getData('名詞');
   let verb = getData('動詞');
   let particle = getData('助詞');
   let auxiliary_verb = getData('助動詞');
+
+  // template
   let target = Math.floor(Math.random() * ((noun.length - 1) - 0) + 0); 
   let target2 = Math.floor(Math.random() * ((particle.length - 1) - 0) + 0); 
   let target3 = Math.floor(Math.random() * ((noun.length - 1) - 0) + 0); 
   let target4 = Math.floor(Math.random() * ((verb.length - 1) - 0) + 0);
   let target5 = Math.floor(Math.random() * ((auxiliary_verb.length - 1) - 0) + 0);
   let target6 = Math.floor(Math.random() * ((auxiliary_verb.length - 1) - 0) + 0);
-  
+
+  // template
   /** @type {string[]} */
   let word = [noun[target].text, particle[target2].text, noun[target3].text, particle[target6].text, verb[target4].text, auxiliary_verb[target5].text];
+
+  // template2
+  let word2 = noun[target].text;
   
   if(word[3] === 'て') word[3] = 'が';
   if(word[4][word[4].length - 1] === 'よ' && word[5][0] === 'た') word[5] = 'か';
@@ -157,9 +164,18 @@ function tweet(replyTweet) {
   if(word[4][word[4].length - 1]　 === 'っ' && word[5][0] === 'ま') word[5] = 'たわ';
   if(word[5][word[5].length - 1] === 'し') word[5] = 'した';
   if(word[4][word[4].length - 1]　 === '寝' && word[5][0] === 'だ') word[5] = 'た';
+  if(word[1][word[1].length - 1] === 'を' && word[3][0] === 'の') {
+    word[1] = 'の';
+    word[3] = 'が';
+  } 
   
   let template = `
   123456🤔
+  ※ボットのテストです
+  `;
+
+  let template2 = `
+  1ってなんだ😟？
   ※ボットのテストです
   `;
 
@@ -171,19 +187,38 @@ function tweet(replyTweet) {
   .replace('5', word[4]) // 動詞
   .replace('6', word[5]); // 助動詞
 
-  if(isIncludes(banned_word.banned, template)) {
+  template2 = template2
+  .replace('1', word2); // 名詞
+
+  if(isIncludes(banned_word.banned, template) && useTemplateId === 0) {
     tweet(replyTweet);
     return;
   }
 
-  hook.send(`\`\`\`${template}\`\`\`をツイートします🤔`);
-  
-  if(replyTweet) {
-    twitter.reply(template, replyTweet);
-    twitter.like(replyTweet);
+  if(isIncludes(banned_word.banned, template2) && useTemplateId === 1) {
+    tweet(replyTweet);
     return;
   }
-  twitter.tweet(template);
+
+  if(useTemplateId === 0) {
+    hook.send(`\`\`\`${template}\`\`\`をツイートします🤔`);
+    
+    if(replyTweet) {
+      twitter.reply(template, replyTweet);
+      twitter.like(replyTweet);
+      return;
+    }
+    twitter.tweet(template);
+  } else if(useTemplateId === 1) {
+    hook.send(`\`\`\`${template2}\`\`\`をツイートします🤔`);
+    
+    if(replyTweet) {
+      twitter.reply(template2, replyTweet);
+      twitter.like(replyTweet);
+      return;
+    }
+    twitter.tweet(template2);
+  }
 }
 
 function getData(pos = '名詞') {
