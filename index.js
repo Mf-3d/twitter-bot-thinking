@@ -5,7 +5,9 @@ const fs = require('fs');
 const schedule = require('node-schedule');
 const express = require('express');
 const GithubWebHook = require('express-github-webhook');
+
 const webhookHandler = GithubWebHook({ path: '/webhook', secret: process.env.github_webhook_secret });
+const banned_word = require('./banned_word.json');
 
 const app = express();
 
@@ -70,7 +72,7 @@ async function learning() {
   tweet_tokens2.forEach(async (tweet_token) => {
     if(result.length >= 7) return;
     if(tweet_token.surface_form.match(/@\w+/g)) return;
-
+    if(tweet_token.surface_form)
     result[result.length] = {
       text: tweet_token.surface_form,
       pos: tweet_token.pos
