@@ -1,4 +1,4 @@
-# <span style="color: #2AFF00;">thinking_twi_bot
+# thinking_twi_bot
 
 ## File
 
@@ -11,3 +11,4 @@
 |main/tweet.js       |Twitter API        |
 |main/stream.js      |Twitterのリプライ取得  |
 |dictionary.db       |辞書                |
+|Bot-web/index.html  |Botの紹介           |
