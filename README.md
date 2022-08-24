@@ -10,3 +10,4 @@
 |main/learning.js    |いまんとこなし         |
 |main/tweet.js       |Twitter API        |
 |main/stream.js      |Twitterのリプライ取得  |
+|dictionary.db       |辞書                |

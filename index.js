@@ -79,7 +79,7 @@ async function learning() {
 
 
   /** @type {{dict: {text: string}[]}} */
-  let file = JSON.parse(fs.readFileSync(`${__dirname}/dictonary.db`));
+  let file = JSON.parse(fs.readFileSync(`${__dirname}/dictionary.db`));
 
   let saveData = {
     dict: [
@@ -88,7 +88,7 @@ async function learning() {
     ]
   }
 
-  fs.writeFileSync(`${__dirname}/dictonary.db`, JSON.stringify(saveData));
+  fs.writeFileSync(`${__dirname}/dictionary.db`, JSON.stringify(saveData));
 }
 
 function tweet(replyTweet) {
@@ -156,7 +156,7 @@ function tweet(replyTweet) {
 
 function getData(pos = '名詞') {
   /** @type {{text: string, pos: string}[]} */
-  let dict = (JSON.parse(fs.readFileSync(`${__dirname}/dictonary.db`))).dict;
+  let dict = (JSON.parse(fs.readFileSync(`${__dirname}/dictionary.db`))).dict;
   let result = [];
 
   dict.forEach((word) => {
