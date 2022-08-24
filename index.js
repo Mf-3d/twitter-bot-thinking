@@ -147,13 +147,13 @@ function tweet(replyTweet) {
     word[1] = 'は';
     word[3] = 'で';
   }
-  if(word[5][word[5].length - 1] === 'っ') word[5][word[5].length] = 'た';  
+  if(word[5][word[5].length - 1] === 'っ') word[5] = word[5] + 'た';
   if(word[3][word[3].length - 1] === 'か') word[3] = 'が'; 
   if(word[1][word[1].length - 1] === 'に' && word[3][word[1].length - 1] === 'に') word[3] = 'が'; 
   if(word[4][word[4].length - 1] === 'る' && word[5][0] === 'た') word[5] = 'ん';  
   if(word[1] === word[3]) word[3] = 'で';  
   if(word[4][word[4].length - 1] === 'う' && word[5][0] === 'た') word[4][word[4].length - 1] = 'っ';
-  if(word[5][word[5].length - 1] === 'っ') word[5][word[5].length] = 'て';
+  if(word[1][word[1].length - 1] === 'て' && word[3][0] === 'を') word[3] = 'で';
   
   let template = `
   123456🤔
