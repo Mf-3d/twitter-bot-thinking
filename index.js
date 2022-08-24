@@ -132,7 +132,8 @@ function tweet(replyTweet) {
   }
   if(word[5][word[5].length - 1] === 'っ') word[5][word[5].length] = 'た';  
   if(word[3][word[3].length - 1] === 'か') word[3] = 'が'; 
-  
+  if(word[1][word[1].length - 1] === 'に' && word[3][word[1].length - 1] === 'に') word[3] = 'が'; 
+  if(word[5][word[5].length - 1] === 'る' && word[5][0] === 'た') word[5] = 'ん';  
   let template = `
   123456🤔
   ※ボットのテストです
