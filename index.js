@@ -139,10 +139,10 @@ function tweet(replyTweet) {
   if(word[1][word[1].length - 1] === 'の' && word[3][0] === 'の') word[3] = 'を';
   if(word[4].includes('た') && word[5][0] === 'ら') word[5][0] = '';
   if(word[4][word[4].length - 1]　 !== 'ま' && word[5][0] === 'う') word[5][0] = 'た';
-  if(word[4][word[4].length - 1]　 !== 'う' && word[5][0] !== 'ぞ') word[5] = '';
-  if(word[4][word[4].length - 1]　 !== 'っ' && word[5][0] !== 'だ') word[5] = 'た';
-  if(word[4][word[4].length - 1]　 !== 'っ' && word[5][0] !== 'な') word[5] = 'た';
-  if(word[4][word[4].length - 1]　 !== 'っ' && word[5][0] !== 'う') word[5] = 'た';
+  if(word[4][word[4].length - 1]　 === 'う' && word[5][0] !== 'ぞ') word[5] = '';
+  if(word[4][word[4].length - 1]　 === 'っ' && word[5][0] === 'だ') word[5] = 'た';
+  if(word[4][word[4].length - 1]　 === 'っ' && word[5][0] === 'な') word[5] = 'たな';
+  if(word[4][word[4].length - 1]　 === 'っ' && word[5][0] === 'う') word[5] = 'た';
   if(word[1] === 'が' && word[3] === 'は') {
     word[1] = 'は';
     word[3] = 'で';
