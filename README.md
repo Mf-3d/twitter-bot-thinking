@@ -1,6 +1,13 @@
-# <span style="color: #2AFF00;">thinking_twi_bot</span>
+# <span style="color: #2AFF00;">thinkingのbot(仮)</span>
 
-## File
+単語を学習するボットです。
+
+## 機能
+- 単語をTwitterのタイムラインから学ぶ
+- 辞書から文章を作成する
+- ~~Sorakimeさんのためにコーヒーを淹れる~~
+
+## ファイル
 
 |ファイル名             |説明               |
 |--------------------|-------------------|
@@ -11,4 +18,10 @@
 |main/tweet.js       |Twitter API        |
 |main/stream.js      |Twitterのリプライ取得  |
 |dictionary.db       |辞書                |
-|Bot-web/index.html  |Botの紹介           |
+
+## 開発者
+- [mf7cli](https://github.com/Mf-3d)
+- [EARTH](https://github.com/EARTH-01111)
+- [amania](https://github.com/amania-Jailbreak)
+
+Twitter: [thinkingService](https://twitter.com/thinkingService)
