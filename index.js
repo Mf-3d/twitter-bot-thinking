@@ -9,6 +9,8 @@ const GithubWebHook = require('express-github-webhook');
 const webhookHandler = GithubWebHook({ path: '/webhook', secret: process.env.github_webhook_secret });
 const banned_word = require('./banned_word.json');
 
+const isIncludes = (arr, target) => arr.some(el => target.includes(el));
+
 const app = express();
 
 app.use(express.json());
@@ -22,6 +24,7 @@ webhookHandler.on('*', function (type, repo, data) {
     twitter.tweet(`
     "${commit.message}"がコミットされました🤔
     ${commit.url}
+    ${new Date().toLocaleString({ timeZone: 'Asia/Tokyo' })}
     `);
   });
 });
@@ -62,6 +65,7 @@ async function learning() {
   tweet_tokens.forEach(async (tweet_token) => {
     if(result.length >= 7) return;
     if(tweet_token.surface_form.match(/@\w+/g)) return;
+    if(isIncludes(banned_word.banned, tweet_token.surface_form)) return;
 
     result[result.length] = {
       text: tweet_token.surface_form,
@@ -72,7 +76,7 @@ async function learning() {
   tweet_tokens2.forEach(async (tweet_token) => {
     if(result.length >= 7) return;
     if(tweet_token.surface_form.match(/@\w+/g)) return;
-    if(tweet_token.surface_form)
+    if(isIncludes(banned_word.banned, tweet_token.surface_form)) return;
     result[result.length] = {
       text: tweet_token.surface_form,
       pos: tweet_token.pos
@@ -149,12 +153,19 @@ function tweet(replyTweet) {
   .replace('5', word[4]) // 動詞
   .replace('6', word[5]); // 助動詞
 
+  if(isIncludes(banned_word.banned, template)) {
+    tweet(replyTweet);
+    return;
+  }
+  
   if(replyTweet) {
     twitter.reply(template, replyTweet);
     twitter.like(replyTweet);
     return;
   }
   twitter.tweet(template);
+
+  
 }
 
 function getData(pos = '名詞') {
@@ -178,7 +189,7 @@ start();
   setTimeout(function() {
     learning();
     
-    let mode = Math.floor(Math.random() * (20 - 1)) + 1;
+    let mode = Math.floor(Math.random() * (60 - 1)) + 1;
 
     if(mode === 9) {
       twitter.tweet('ツイートを学習しています🤔');
