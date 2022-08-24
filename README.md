@@ -1,6 +1,6 @@
 # thinking_twi_bot
 
-## fail
+## File
 
 ### .vscode/setting.json
 
