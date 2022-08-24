@@ -22,7 +22,7 @@ webhookHandler.on('*', function (type, repo, data) {
   
   data.commits.forEach((commit) => {
     twitter.tweet(`
-    "${commit.message}"がコミットされました🤔\n${new Date(Date.now() + ((new Date().getTimezoneOffset() + (9 * 60)) * 60 * 1000))}
+    "${commit.message}"がコミットされました🤔\n${new Date(Date.now() + ((new Date().getTimezoneOffset() + (9 * 60)) * 60 * 1000)).toString()}
     ${commit.url}
     `);
   });
