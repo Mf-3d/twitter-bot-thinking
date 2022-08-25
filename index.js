@@ -48,6 +48,11 @@ async function start() {
   // });
   // console.log(tokenArr);
 
+  // twitter.updateBio(`
+  // Artificial incompetence to thinking.
+
+  // ※このBotがツイートすることはほぼすべて自動生成です
+  // `);
   setTimeout(() => {
     tweet();
   }, 3000);
@@ -109,7 +114,7 @@ async function learning() {
 }
 
 async function tweet(replyTweet) {
-  let useTemplateId = Math.floor(Math.random() * (4 - 0) + 0);
+  let useTemplateId = Math.floor(Math.random() * (9 - 0) + 0);
   let noun = getData('名詞');
   let verb = getData('動詞');
   let particle = getData('助詞');
@@ -128,7 +133,7 @@ async function tweet(replyTweet) {
   let word = [noun[target].text, particle[target2].text, noun[target3].text, particle[target6].text, verb[target4].text, auxiliary_verb[target5].text];
 
   let template;
-  if (useTemplateId >= 1) {
+  if (useTemplateId === 1) {
    template = await generate.connect(word, `
     1は2🤯
     ※ボットのテストです
@@ -207,6 +212,12 @@ start();
   setTimeout(function() {
     learning();
     loop2();
+
+    // const usersPaginated = await client.v2.tweetLikedBy('20', { asPaginator: true });
+
+    // for await (const user of usersPaginated) {
+    //   console.log(user.id);
+    // }
   }, 0.25 * 60 * 60000);
 })();
 

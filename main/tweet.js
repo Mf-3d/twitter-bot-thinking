@@ -66,6 +66,10 @@ module.exports = {
   async like(tweetId) {
     let userId = (await client.v2.userByUsername('thinkingService')).data.id;
     await client.v2.like(userId, tweetId)
+  },
+
+  async updateBio(text) {
+    await client.v1.updateAccountProfile({ description: text });
   }
 }
 
