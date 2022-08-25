@@ -11,7 +11,7 @@ const hook = new Webhook(process.env.discord_webhook);
 
 hook.setUsername('thinking Bot（仮）のTwitter通知');
 hook.setAvatar('https://pbs.twimg.com/profile_images/1561649021084913664/1CZezFH3_400x400.jpg');
- 
+
 const webhookHandler = GithubWebHook({ path: '/webhook', secret: process.env.github_webhook_secret });
 const banned_word = require('./banned_word.json');
 
@@ -20,11 +20,11 @@ const isIncludes = (arr, target) => arr.some(el => target.includes(el));
 const app = express();
 
 app.use(express.json());
-app.use(express.urlencoded({ extended: true })); 
+app.use(express.urlencoded({ extended: true }));
 app.use(webhookHandler);
 
-webhookHandler.on('*', function (type, repo, data) {
-  if(type !== 'push') return;
+webhookHandler.on('*', function(type, repo, data) {
+  if (type !== 'push') return;
   let date = new Date(Date.now() + ((new Date().getTimezoneOffset() + (9 * 60)) * 60 * 1000));
   let dateString = date.getFullYear()
     + '/' + ('0' + (date.getMonth() + 1)).slice(-2)
@@ -61,21 +61,21 @@ async function learning() {
   /** @type {import('twitter-api-v2').TweetV2[]} */let filtered_timeline = [];
 
   timeline.forEach(tweet => {
-    if(tweet.text.slice(0, 3) === 'RT ') return;
+    if (tweet.text.slice(0, 3) === 'RT ') return;
 
     filtered_timeline[filtered_timeline.length] = tweet;
   });
 
-  let target = Math.floor(Math.random() * ((filtered_timeline.length - 1) - 0) + 0); 
-  let target2 = Math.floor(Math.random() * ((filtered_timeline.length - 1) - 0) + 0); 
+  let target = Math.floor(Math.random() * ((filtered_timeline.length - 1) - 0) + 0);
+  let target2 = Math.floor(Math.random() * ((filtered_timeline.length - 1) - 0) + 0);
 
   let tweet_tokens = await generate.tokenize(filtered_timeline[target].text);
   let tweet_tokens2 = await generate.tokenize(filtered_timeline[target2].text);
-  
+
   tweet_tokens.forEach(async (tweet_token) => {
-    if(result.length >= 7) return;
-    if(tweet_token.surface_form.match(/@\w+/g)) return;
-    if(isIncludes(banned_word.banned, tweet_token.surface_form)) return;
+    if (result.length >= 7) return;
+    if (tweet_token.surface_form.match(/@\w+/g)) return;
+    if (isIncludes(banned_word.banned, tweet_token.surface_form)) return;
 
     result[result.length] = {
       text: tweet_token.surface_form,
@@ -84,10 +84,10 @@ async function learning() {
   });
 
   tweet_tokens2.forEach(async (tweet_token) => {
-    if(result.length >= 7) return;
-    if(tweet_token.surface_form.match(/@\w+/g)) return;
-    if(isIncludes(banned_word.banned, tweet_token.surface_form)) return;
-    
+    if (result.length >= 7) return;
+    if (tweet_token.surface_form.match(/@\w+/g)) return;
+    if (isIncludes(banned_word.banned, tweet_token.surface_form)) return;
+
     result[result.length] = {
       text: tweet_token.surface_form,
       pos: tweet_token.pos
@@ -109,16 +109,16 @@ async function learning() {
 }
 
 async function tweet(replyTweet) {
-  let useTemplateId = Math.floor(Math.random() * (1 - 0) + 0); 
+  let useTemplateId = Math.floor(Math.random() * (4 - 0) + 0);
   let noun = getData('名詞');
   let verb = getData('動詞');
   let particle = getData('助詞');
   let auxiliary_verb = getData('助動詞');
 
   // template
-  let target = Math.floor(Math.random() * ((noun.length - 1) - 0) + 0); 
-  let target2 = Math.floor(Math.random() * ((particle.length - 1) - 0) + 0); 
-  let target3 = Math.floor(Math.random() * ((noun.length - 1) - 0) + 0); 
+  let target = Math.floor(Math.random() * ((noun.length - 1) - 0) + 0);
+  let target2 = Math.floor(Math.random() * ((particle.length - 1) - 0) + 0);
+  let target3 = Math.floor(Math.random() * ((noun.length - 1) - 0) + 0);
   let target4 = Math.floor(Math.random() * ((verb.length - 1) - 0) + 0);
   let target5 = Math.floor(Math.random() * ((auxiliary_verb.length - 1) - 0) + 0);
   let target6 = Math.floor(Math.random() * ((auxiliary_verb.length - 1) - 0) + 0);
@@ -127,43 +127,42 @@ async function tweet(replyTweet) {
   /** @type {string[]} */
   let word = [noun[target].text, particle[target2].text, noun[target3].text, particle[target6].text, verb[target4].text, auxiliary_verb[target5].text];
 
+  let template;
+  if (useTemplateId >= 1) {
+   template = await generate.connect(word, `
+    1は2🤯
+    ※ボットのテストです
+    `);
+  } else if (useTemplateId === 2) {
+   template = await generate.connect(word, `
+    123456🤔
+    ※ボットのテストです
+    `);
+  } else if (useTemplateId === 3) {
+    template = await generate.connect(word, `
+    1ってなんだ🤔？
+    ※ボットのテストです
+    `);
+  } else {
+    template = await generate.connect(word, `
+    123456🤔
+    ※ボットのテストです
+    `);
+  }
 
-  let template2 = `
-  1ってなんだ😟？
-  ※ボットのテストです
-  `;
-
-  let template = await generate.connect(word);
-
-  if(isIncludes(banned_word.banned, template) && useTemplateId === 0) {
+  if (isIncludes(banned_word.banned, template)) {
     tweet(replyTweet);
     return;
   }
 
-  if(isIncludes(banned_word.banned, template2) && useTemplateId === 1) {
-    tweet(replyTweet);
+  hook.send(`\`\`\`${template}\`\`\`をツイートします🤔`);
+
+  if (replyTweet) {
+    twitter.reply(template, replyTweet);
+    twitter.like(replyTweet);
     return;
   }
-
-  if(useTemplateId === 0) {
-    hook.send(`\`\`\`${template}\`\`\`をツイートします🤔`);
-    
-    if(replyTweet) {
-      twitter.reply(template, replyTweet);
-      twitter.like(replyTweet);
-      return;
-    }
-    twitter.tweet(template);
-  } else if(useTemplateId === 1) {
-    hook.send(`\`\`\`${template2}\`\`\`をツイートします🤔`);
-    
-    if(replyTweet) {
-      twitter.reply(template2, replyTweet);
-      twitter.like(replyTweet);
-      return;
-    }
-    twitter.tweet(template2);
-  }
+  twitter.tweet(template);
 }
 
 function getData(pos = '名詞') {
@@ -172,7 +171,7 @@ function getData(pos = '名詞') {
   let result = [];
 
   dict.forEach((word) => {
-    if(word.pos !== pos) return;
+    if (word.pos !== pos) return;
 
     result[result.length] = word;
   });
@@ -187,18 +186,18 @@ start();
   setTimeout(function() {
     let mode = Math.floor(Math.random() * (60 - 1)) + 1;
 
-    if(mode === 9) {
+    if (mode === 9) {
       twitter.tweet('ツイートを学習しています🤔');
       loop();
       return;
     }
 
-    if(mode === 7) {
+    if (mode === 7) {
       twitter.tweet('🐱');
       loop();
       return;
     }
-    
+
     tweet();
     loop();
   }, Rand * 60000);
@@ -226,13 +225,13 @@ const job3 = schedule.scheduleJob('0 34 18 * * *', () => {
 twitter.event.on('replied', (reply) => {
   console.log('リプされました', reply.data.id);
 
-  if(reply.data.text.includes('waryu')) {
+  if (reply.data.text.includes('waryu')) {
     let word = ['w', 'a', 'r', 'y', 'u'];
     let rnd = [
-      Math.floor(Math.random() * ((word.length - 1) - 1)) + 1, 
       Math.floor(Math.random() * ((word.length - 1) - 1)) + 1,
-      Math.floor(Math.random() * ((word.length - 1) - 1)) + 1, 
-      Math.floor(Math.random() * ((word.length - 1) - 1)) + 1, 
+      Math.floor(Math.random() * ((word.length - 1) - 1)) + 1,
+      Math.floor(Math.random() * ((word.length - 1) - 1)) + 1,
+      Math.floor(Math.random() * ((word.length - 1) - 1)) + 1,
       Math.floor(Math.random() * ((word.length - 1) - 1)) + 1
     ];
 

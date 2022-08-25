@@ -16,7 +16,10 @@ module.exports = {
     return result;
   },
 
-  async connect(word) {
+  async connect(word, template = `
+    123456🤔
+    ※ボットのテストです
+    `) {
     if(word[3] === 'て') word[3] = 'が';
     if(word[4][word[4].length - 1] === 'よ' && word[5][0] === 'た') word[5] = 'か';
     if(word[4][word[4].length - 1] !== 'だ' && word[5] === 'しな') word[4] = 'だ';
@@ -54,12 +57,7 @@ module.exports = {
     if(word[1][word[1].length - 1] === 'を' && word[3][0] === 'の') {
       word[1] = 'の';
       word[3] = 'が';
-    } 
-    
-    let template = `
-    123456🤔
-    ※ボットのテストです
-    `;
+    }
 
     let result = template
     .replace('1', word[0])  // 名詞
