@@ -1,7 +1,7 @@
 const kuromoji = require('kuromoji');
 const isIncludes = (arr, target) => arr.some(el => target.includes(el));
 
-const symbol = ['/', '\\', ',', '.', '、', '。', '？', '！', '?', '!', '<', '>', '＜', '＞', '_', '＿', '（', '）', '(', ')'];
+const symbol = ['/', '\\', ',', '.', '、', '。', '？', '！', '?', '!', '<', '>', '＜', '＞', '_', '＿', '（', '）', '(', ')', '-'];
 
 module.exports = {
   /** 

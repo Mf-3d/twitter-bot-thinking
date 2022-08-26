@@ -170,7 +170,7 @@ start();
     // for await (const user of usersPaginated) {
     //   console.log(user.id);
     // }
-  }, 0.25 * 60 * 60000);
+  }, 5 * 60000);
 })();
 
 const job1 = schedule.scheduleJob('0 0 21 * * *', () => {
