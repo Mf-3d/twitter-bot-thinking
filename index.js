@@ -164,8 +164,9 @@ async function tweet(replyTweet) {
   hook.send(`\`\`\`${template}\`\`\`をツイートします🤔`);
 
   if (replyTweet) {
-    twitter.reply(template, replyTweet);
     twitter.like(replyTweet);
+    twitter.reply(template, replyTweet);
+    
     return;
   }
   twitter.tweet(template);
@@ -258,6 +259,7 @@ twitter.event.on('replied', async (reply) => {
   let negaposi = emotion.analysis(await generate.tokenize(reply.data.text));
 
   if (negaposi <= 0.01) {
+    twitter.like(reply.data.id);
     twitter.tweet('...🤔');
     return;
   }
