@@ -2,7 +2,7 @@ const emotion = require('./main/emotion');
 const kuromoji = require('kuromoji');
 
 (async function test () {
-  let text = 'waryuさん食う';
+  let text = 'あぁ、、';
   kuromoji.builder({
     dicPath: `${__dirname}/node_modules/kuromoji/dict`
   }).build(async (err, tokenizer) => {

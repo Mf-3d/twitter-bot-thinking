@@ -77,6 +77,7 @@ async function learning() {
   let tweet_tokens = await generate.tokenize(filtered_timeline[target].text);
   let tweet_tokens2 = await generate.tokenize(filtered_timeline[target2].text);
 
+
   tweet_tokens.forEach(async (tweet_token) => {
     if (result.length >= 7) return;
     if (tweet_token.surface_form.match(/@\w+/g)) return;
@@ -134,12 +135,12 @@ async function tweet(replyTweet) {
 
   let template;
   if (useTemplateId === 1) {
-   template = await generate.connect(word, `
+    template = await generate.connect(word, `
     1は2🤯
     ※ボットのテストです
     `);
   } else if (useTemplateId === 2) {
-   template = await generate.connect(word, `
+    template = await generate.connect(word, `
     123456🤔
     ※ボットのテストです
     `);
@@ -250,6 +251,14 @@ twitter.event.on('replied', (reply) => {
 
     twitter.like(reply.data.id);
     twitter.reply(waryu, reply.data.id);
+    return;
+  }
+
+
+  let negaposi = emotion.analysis(generate.tokenize(reply.data.text));
+
+  if (negaposi <= 0.01) {
+    twitter.tweet('...🤔');
     return;
   }
   tweet(reply.data.id);
