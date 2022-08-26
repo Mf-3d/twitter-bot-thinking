@@ -86,9 +86,7 @@ module.exports = {
       if (tweet_token.surface_form.match(/@\w+/g)) return;
       if (isIncludes(banned_word.banned, tweet_token.surface_form)) return;
   
-      result[result.length] = {
-        pos: tweet_token.pos
-      }
+      result[result.length] = tweet_token.pos;
     });
   
   
