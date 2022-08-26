@@ -49,6 +49,7 @@ async function start() {
   // });
   // console.log(tokenArr);
 
+  // twitter.tweet('@nyanpassnanon どわ😟？')
   // twitter.updateBio(`
   // Artificial incompetence to thinking.
 
@@ -194,7 +195,16 @@ const job4 = schedule.scheduleJob('0 34 18 * * *', () => {
 twitter.event.on('replied', async (reply) => {
   twitter.like(reply.data.id);
   console.log('リプされました', reply.data.id);
+  let replyChance = undefined;
+  console.log(reply.data.source);
+  if (!isIncludes(['for iPad', 'for Android', 'for Mac', 'for iPhone', 'Twitter Web App'], reply.data.source)) {
+    console.log('このリプはbotのリプの可能性があります\n対botモードで対応します');
+    replyChance = Math.random() * (1 - -1) + -1;
 
+    if(replyChance <= 0) return;
+  }
+
+  
   if (reply.data.text.includes('waryu')) {
     let word = ['w', 'a', 'r', 'y', 'u'];
     let rnd = [
@@ -208,6 +218,11 @@ twitter.event.on('replied', async (reply) => {
     let waryu = `${word[rnd[0]]}${word[rnd[1]]}${word[rnd[2]]}${word[rnd[3]]}${word[rnd[4]]}`
 
     twitter.reply(waryu, reply.data.id);
+    return;
+  }
+
+  if (reply.data.text.toLowerCase().includes(JSON.parse(process.env.REPLY_SECRET_WORD).query)) {
+    twitter.reply(JSON.parse(process.env.REPLY_SECRET_WORD).value, reply.data.id);
     return;
   }
 

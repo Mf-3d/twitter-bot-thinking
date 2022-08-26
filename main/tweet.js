@@ -47,10 +47,17 @@ module.exports = {
    * @return {Promise<twitter.TweetV2SingleResult>}
    */
   async getTweet(tweetId) {
+    let test = await client.v2.singleTweet(tweetId, {
+      expansions: [
+        'author_id'
+      ],
+      "tweet.fields": ["source"]
+    });
     return await client.v2.singleTweet(tweetId, {
       expansions: [
         'author_id'
-      ]
+      ],
+      "tweet.fields": "source"
     });
   },
 
