@@ -207,7 +207,6 @@ twitter.event.on('replied', async (reply) => {
 
     let waryu = `${word[rnd[0]]}${word[rnd[1]]}${word[rnd[2]]}${word[rnd[3]]}${word[rnd[4]]}`
 
-    twitter.like(reply.data.id);
     twitter.reply(waryu, reply.data.id);
     return;
   }
