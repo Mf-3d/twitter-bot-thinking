@@ -190,6 +190,9 @@ start();
 (function loop() {
   let Rand = Math.round(Math.random() * (18 - 7)) + 7;
   setTimeout(function() {
+    let now = new Date();
+    if(now.getHours() >= 14 && now.getHours() < 21) return;
+    
     let mode = Math.floor(Math.random() * (60 - 1)) + 1;
 
     if (mode === 9) {
@@ -223,7 +226,11 @@ start();
 })();
 
 const job1 = schedule.scheduleJob('0 0 21 * * *', () => {
-  twitter.tweet('おはよう🤔')
+  twitter.tweet('おはよう🤔');
+});
+
+const job1 = schedule.scheduleJob('0 0 14 * * *', () => {
+  twitter.tweet('おやすみ🥱');
 });
 
 const job2 = schedule.scheduleJob('0 0 3 * * *', () => {
@@ -233,6 +240,8 @@ const job2 = schedule.scheduleJob('0 0 3 * * *', () => {
 const job3 = schedule.scheduleJob('0 34 18 * * *', () => {
   twitter.tweet('33-4🤯');
 });
+
+
 
 twitter.event.on('replied', async (reply) => {
   twitter.like(reply.data.id);
@@ -263,7 +272,11 @@ twitter.event.on('replied', async (reply) => {
     return;
   }
 
-  console.log(negaposi);
+  if (negaposi >= 0.05) {
+    twitter.reply('おぉ🤯', reply.data.id);
+    return;
+  }
+
   tweet(reply.data.id);
 });
 
