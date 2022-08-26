@@ -1,10 +1,15 @@
 var http = require('http');
+const analyze = require('negaposi-analyzer-ja');
 
 var base_url = "http://ap.mextractr.net/ma9/emotion_analyzer";
 var apikey = process.env.metadata_api_key; //ここは変えてください
 var out = "json";
 
 module.exports = {
+  /** 
+  * @deprecated
+  * Please use "analysis" function.
+  */
   async emotionalAnalysis(text) {
     text = encodeURI(text);
 
@@ -28,5 +33,10 @@ module.exports = {
     });
 
     return await result;
+  },
+  async analysis(text) {
+    const score = analyze(text);
+    console.log(analyze(text))
+    return score;
   }
 }
