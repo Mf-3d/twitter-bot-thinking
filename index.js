@@ -164,7 +164,6 @@ async function tweet(replyTweet) {
   hook.send(`\`\`\`${template}\`\`\`をツイートします🤔`);
 
   if (replyTweet) {
-    twitter.like(replyTweet);
     twitter.reply(template, replyTweet);
     
     return;
@@ -236,6 +235,7 @@ const job3 = schedule.scheduleJob('0 34 18 * * *', () => {
 });
 
 twitter.event.on('replied', async (reply) => {
+  twitter.like(reply.data.id);
   console.log('リプされました', reply.data.id);
 
   if (reply.data.text.includes('waryu')) {
@@ -256,10 +256,9 @@ twitter.event.on('replied', async (reply) => {
   }
 
 
-  let negaposi = emotion.analysis(await generate.tokenize(reply.data.text));
+  let negaposi =　await emotion.analysis(await generate.tokenize(reply.data.text));
 
-  if (negaposi <= 0.01) {
-    twitter.like(reply.data.id);
+  if (negaposi <= -0.01) {
     twitter.tweet('...🤔');
     return;
   }
