@@ -234,7 +234,7 @@ const job3 = schedule.scheduleJob('0 34 18 * * *', () => {
   twitter.tweet('33-4🤯');
 });
 
-twitter.event.on('replied', (reply) => {
+twitter.event.on('replied', async (reply) => {
   console.log('リプされました', reply.data.id);
 
   if (reply.data.text.includes('waryu')) {
@@ -255,7 +255,7 @@ twitter.event.on('replied', (reply) => {
   }
 
 
-  let negaposi = emotion.analysis(generate.tokenize(reply.data.text));
+  let negaposi = emotion.analysis(await generate.tokenize(reply.data.text));
 
   if (negaposi <= 0.01) {
     twitter.tweet('...🤔');
