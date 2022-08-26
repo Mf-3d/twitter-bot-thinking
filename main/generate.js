@@ -73,6 +73,7 @@ module.exports = {
     if(word[3][word[3].length - 1]　 === 'で' && word[4][0] === '来') word[5] = '着';
     if(word[3][word[3].length - 1]　 === 'ぜ') word[5] = 'が';
     if(word[4][word[4].length - 1]　 === 'ら' && word[5][0]　 === 'た') word[5] = 'れた';
+    if(word[4][word[4].length - 1]　 === 'え' && word[5][0]　 === 'う') word[5] = 'るん？';
     
     let result = template
     .replace('1', word[0])  // 名詞

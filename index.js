@@ -229,12 +229,22 @@ twitter.event.on('replied', async (reply) => {
 
   let negaposi = await emotion.analysis(await generate.tokenize(reply.data.text));
 
-  if (negaposi <= -0.01) {
+  if (negaposi < 0 && negaposi > -0.05) {
     twitter.reply('...🤔', reply.data.id);
     return;
   }
 
-  if (negaposi >= 0.05) {
+  if (negaposi <= -0.05 && negaposi > -0.1) {
+    twitter.reply('ほう...😔', reply.data.id);
+    return;
+  }
+
+  if (negaposi > 0 && negaposi <= 0.05) {
+    twitter.reply('お㍂🤔', reply.data.id);
+    return;
+  }
+  
+  if (negaposi > 0.05) {
     twitter.reply('おぉ🤯', reply.data.id);
     return;
   }
