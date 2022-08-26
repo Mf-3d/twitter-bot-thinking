@@ -36,7 +36,6 @@ module.exports = {
   },
   async analysis(text) {
     const score = analyze(text);
-    console.log(analyze(text))
     return score;
   }
 }
