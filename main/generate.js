@@ -1,7 +1,7 @@
 const kuromoji = require('kuromoji');
 const isIncludes = (arr, target) => arr.some(el => target.includes(el));
 
-const symbol = ['/', '\\', ',', '.', '、', '。', '？', '！', '?', '!', '<', '>', '＜', '＞'];
+const symbol = ['/', '\\', ',', '.', '、', '。', '？', '！', '?', '!', '<', '>', '＜', '＞', '_', '＿'];
 
 module.exports = {
   /** 
@@ -69,6 +69,7 @@ module.exports = {
     if(word[4][word[4].length - 1]　 === '寝' && word[5][0] === 'し') word[5] = 'た';
     if(isIncludes(symbol, word[0])) word[0] = 'わりゅ';
     if(isIncludes(symbol, word[1])) word[1] = 'Sorakime';
+    if(word[4][word[4].length - 1]　 === 'え' && word[5][0] !== 'う') word[5] = 'るのか';
     
     let result = template
     .replace('1', word[0])  // 名詞
