@@ -229,15 +229,15 @@ const job1 = schedule.scheduleJob('0 0 21 * * *', () => {
   twitter.tweet('おはよう🤔');
 });
 
-const job1 = schedule.scheduleJob('0 0 14 * * *', () => {
+const job2 = schedule.scheduleJob('0 0 14 * * *', () => {
   twitter.tweet('おやすみ🥱');
 });
 
-const job2 = schedule.scheduleJob('0 0 3 * * *', () => {
+const job3 = schedule.scheduleJob('0 0 3 * * *', () => {
   twitter.tweet('12時🤔');
 });
 
-const job3 = schedule.scheduleJob('0 34 18 * * *', () => {
+const job4 = schedule.scheduleJob('0 34 18 * * *', () => {
   twitter.tweet('33-4🤯');
 });
 
