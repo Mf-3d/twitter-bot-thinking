@@ -7,10 +7,10 @@ const express = require('express');
 const { Webhook } = require('discord-webhook-node');
 const GithubWebHook = require('express-github-webhook');
 
-const hook = new Webhook(process.env.discord_webhook);
+// const hook = new Webhook(process.env.discord_webhook);
 
-hook.setUsername('thinking Bot（仮）のTwitter通知');
-hook.setAvatar('https://pbs.twimg.com/profile_images/1561649021084913664/1CZezFH3_400x400.jpg');
+// hook.setUsername('thinking Bot（仮）のTwitter通知');
+// hook.setAvatar('https://pbs.twimg.com/profile_images/1561649021084913664/1CZezFH3_400x400.jpg');
 
 const webhookHandler = GithubWebHook({ path: '/webhook', secret: process.env.github_webhook_secret });
 const banned_word = require('./banned_word.json');
@@ -42,7 +42,7 @@ webhookHandler.on('*', function(type, repo, data) {
 
 async function start() {
   console.log('サーバーが起動しました');
-  hook.send("鯖が起動したぞ");
+  // hook.send("鯖が起動したぞ");
   // const tokenArr = (await generate.tokenize('私は定期的にツイートを学習します。')).map((token)=>{
   //   return token.surface_form
   // });
@@ -161,7 +161,7 @@ async function tweet(replyTweet) {
     return;
   }
 
-  hook.send(`\`\`\`${template}\`\`\`をツイートします🤔`);
+  // hook.send(`\`\`\`${template}\`\`\`をツイートします🤔`);
 
   if (replyTweet) {
     twitter.reply(template, replyTweet);
