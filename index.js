@@ -256,12 +256,14 @@ twitter.event.on('replied', async (reply) => {
   }
 
 
-  let negaposi =　await emotion.analysis(await generate.tokenize(reply.data.text));
+  let negaposi = await emotion.analysis(await generate.tokenize(reply.data.text));
 
   if (negaposi <= -0.01) {
-    twitter.tweet('...🤔');
+    twitter.reply('...🤔', reply.data.id);
     return;
   }
+
+  console.log(negaposi);
   tweet(reply.data.id);
 });
 
