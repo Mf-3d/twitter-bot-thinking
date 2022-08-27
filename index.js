@@ -42,7 +42,6 @@ webhookHandler.on('*', function(type, repo, data) {
 });
 
 async function start() {
-  console.log('サーバーが起動しました');
   // hook.send("鯖が起動したぞ");
   // const tokenArr = (await generate.tokenize('私は定期的にツイートを学習します。')).map((token)=>{
   //   return token.surface_form
@@ -111,8 +110,6 @@ function getData(pos = '名詞') {
 
   return result;
 }
-
-start();
 
 (function loop() {
   let Rand = Math.round(Math.random() * (18 - 7)) + 7;
@@ -235,5 +232,7 @@ app.get('/', (req, res) => {
 });
 
 app.listen(3000, () => {
-  console.log('Expressサーバーが起動しました');
+  console.log('サーバーが起動しました');
+
+  start();
 });
