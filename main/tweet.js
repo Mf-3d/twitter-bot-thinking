@@ -19,8 +19,6 @@ module.exports = {
    * @return {Promise<twitter.TweetV2PostTweetResult>} Tweet data
    */
   async tweet(text) {
-    if(text.length >= 110) return;
-    
     try {
       return await client.v2.tweet(text);
     } catch (error) {
