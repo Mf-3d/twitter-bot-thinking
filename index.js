@@ -174,6 +174,7 @@ twitter.event.on('replied', async (reply) => {
   console.log('リプされました', reply.data.id);
   let replyChance = undefined;
   console.log(reply.data.source);
+  
   if (!isIncludes(['for iPad', 'for Android', 'for Mac', 'for iPhone', 'Twitter Web App'], reply.data.source)) {
     console.log('このリプはbotのリプの可能性があります\n対botモードで対応します');
     replyChance = Math.random() * (1 - -1) + -1;
@@ -205,6 +206,7 @@ twitter.event.on('replied', async (reply) => {
 
 
   let negaposi = await emotion.analysis(await generate.tokenize(reply.data.text));
+  console.log('ネガポジ値を取得しました');
   await action.updateFavoRate(negaposi, reply.data.author_id);
   
   if (negaposi < 0 && negaposi > -0.05) {
