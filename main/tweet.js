@@ -14,6 +14,7 @@ const client = new twitter.TwitterApi({
 
 module.exports = {
   /**
+   * muihuiuo
    * Post tweet.
    * @param {string} text 
    * @return {Promise<twitter.TweetV2PostTweetResult>} Tweet data
