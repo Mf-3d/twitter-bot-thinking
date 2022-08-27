@@ -139,6 +139,7 @@ module.exports = {
         if (word[i].word === 'まし' && wordData.detail === '助動詞') wordData.word = 'し';
         if (word[i].word[wordData.word.length - 1] === 'う' && wordData.detail === '動詞' && word[i + 1].word[0] === 'た' && word[i + 1].detail === '助動詞') word[i + 1].word = 'か';
         if (word[i].word[wordData.word.length - 1] === 'う' && wordData.detail === '動詞' && word[i + 1].word[0] === 'だ' && word[i + 1].detail === '助動詞') wordData.word = 'あっ';
+        
         // if (word[4][word[4].length - 1] === 'よ' && word[5][0] === 'た') word[5] = 'か';
         // if (wordData.word !== 'だ' && wordData.detail === '動詞' && word[5] === 'しな') wordData.word = 'だ';
         // if (word[4][word[4].length - 1] !== 'る' && word[5][0] === 'た') word[5][0] = 'か';

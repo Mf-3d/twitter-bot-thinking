@@ -32,6 +32,7 @@ async function getStream() {
       return;
     }
 
+    /** @type {twitter.TweetV2SingleResult} */
     let result = await client.v2.singleTweet(tweet.data.id, {
       expansions: [
         'author_id'

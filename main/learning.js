@@ -58,7 +58,7 @@ module.exports = {
       ]
     }
   
-    fs.writeFileSync(`${__dirname}/../dictionary.db`, JSON.stringify(saveData));
+    fs.writeFileSync(`${__dirname}/../dictionary.db`, JSON.stringify(saveData, null , "\t"));
   },
 
   async learnTemplates() {
@@ -100,6 +100,6 @@ module.exports = {
       ]
     }
   
-    fs.writeFileSync(`${__dirname}/../template.db`, JSON.stringify(saveData));
+    fs.writeFileSync(`${__dirname}/../template.db`, JSON.stringify(saveData, null , "\t"));
   }
 }

@@ -2,6 +2,7 @@ const twitter = require('./main/tweet');
 const generate = require('./main/generate');
 const emotion = require('./main/emotion');
 const learn = require('./main/learning');
+const action = require('./main/action');
 const fs = require('fs');
 const schedule = require('node-schedule');
 const express = require('express');
@@ -204,7 +205,8 @@ twitter.event.on('replied', async (reply) => {
 
 
   let negaposi = await emotion.analysis(await generate.tokenize(reply.data.text));
-
+  await action.updateFavoRate(negaposi, reply.data.author_id);
+  
   if (negaposi < 0 && negaposi > -0.05) {
     twitter.reply('...🤔', reply.data.id);
     return;

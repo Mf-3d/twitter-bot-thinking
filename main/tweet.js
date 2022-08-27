@@ -14,7 +14,6 @@ const client = new twitter.TwitterApi({
 
 module.exports = {
   /**
-   * muihuiuo
    * Post tweet.
    * @param {string} text 
    * @return {Promise<twitter.TweetV2PostTweetResult>} Tweet data
@@ -88,7 +87,8 @@ module.exports = {
 }
 
 
-stream.on('replied', (tweet) => {
+stream.on('replied', /** @param {twitter.TweetV2SingleResult} tweet */ (tweet) => {
+  
   emitter.emit('replied', tweet);
   console.log('replied')
 });
