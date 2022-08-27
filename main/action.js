@@ -4,6 +4,8 @@ const fs = require('fs');
 module.exports = {
   /** 
   * 好感度を更新
+  * @param {number} negaposi
+  * @param {string} user
   */
   async updateFavoRate(negaposi, user) {
     // aaaaa

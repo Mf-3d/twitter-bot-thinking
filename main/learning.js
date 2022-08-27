@@ -27,6 +27,7 @@ module.exports = {
   
     tweet_tokens.forEach(async (tweet_token) => {
       if (result.length >= 7) return;
+      if ((tweet_token.surface_form.length - 1) >= 10) return;
       if (tweet_token.surface_form.match(/@\w+/g)) return;
       if (isIncludes(banned_word.banned, tweet_token.surface_form)) return;
   
@@ -38,6 +39,7 @@ module.exports = {
   
     tweet_tokens2.forEach(async (tweet_token) => {
       if (result.length >= 7) return;
+      if ((tweet_token.surface_form.length - 1) >= 10) return;
       if (tweet_token.surface_form.match(/@\w+/g)) return;
       if (isIncludes(banned_word.banned, tweet_token.surface_form)) return;
   
