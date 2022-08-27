@@ -8,7 +8,7 @@ module.exports = {
   async learnTokens() {
     /** @type {{text: string}[]} */let result = [];
 
-    let timeline = await twitter.getUserTimeline('1542826170000977921');
+    let timeline = await twitter.getUserTimeline('1441436363304300553');
     // let timeline = await twitter.getTimeline();
     /** @type {import('twitter-api-v2').TweetV2[]} */let filtered_timeline = [];
   

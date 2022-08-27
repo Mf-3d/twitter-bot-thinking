@@ -132,6 +132,13 @@ module.exports = {
           wordData.word = 'で';
         }
 
+        if (word[i].word[wordData.word.length - 1] === 'し' && wordData.detail === '動詞' && word[i + 1].word[0] === 'だ' && word[i + 1].detail === '助動詞') word[i + 1].word = 'たんだっけか';
+        if(isIncludes(symbol, wordData.word) && wordData.detail === '名詞') wordData.word === 'CPU';
+        if (word[i].word[wordData.word.length - 1] === 'っ' && wordData.detail === '動詞' && word[i + 1].word[0] === 'う' && word[i + 1].detail === '助動詞') word[i + 1].word = 'てね';
+        if (wordData.word === 'てる' && wordData.detail === '動詞') wordData.word = '似てる';
+        if (word[i].word === 'まし' && wordData.detail === '助動詞') wordData.word = 'し';
+        if (word[i].word[wordData.word.length - 1] === 'う' && wordData.detail === '動詞' && word[i + 1].word[0] === 'た' && word[i + 1].detail === '助動詞') word[i + 1].word = 'か';
+        if (word[i].word[wordData.word.length - 1] === 'う' && wordData.detail === '動詞' && word[i + 1].word[0] === 'だ' && word[i + 1].detail === '助動詞') wordData.word = 'あっ';
         // if (word[4][word[4].length - 1] === 'よ' && word[5][0] === 'た') word[5] = 'か';
         // if (wordData.word !== 'だ' && wordData.detail === '動詞' && word[5] === 'しな') wordData.word = 'だ';
         // if (word[4][word[4].length - 1] !== 'る' && word[5][0] === 'た') word[5][0] = 'か';
@@ -199,6 +206,10 @@ module.exports = {
     word.forEach((wordData) => {
       result += wordData.word;
     });
+
+    if(result.match(/@\w+/g)) {
+      result.replace(/@\w+/g, '@ rumiasan1218')
+    }
 
 
     return result;

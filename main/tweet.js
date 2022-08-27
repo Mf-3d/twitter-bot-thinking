@@ -19,10 +19,19 @@ module.exports = {
    * @return {Promise<twitter.TweetV2PostTweetResult>} Tweet data
    */
   async tweet(text) {
-    if(text.length >= 110) return;  
+    if(text.length >= 110) return;
+    
     try {
       return await client.v2.tweet(text);
     } catch (error) {
+      let date = new Date(Date.now() + ((new Date().getTimezoneOffset() + (9 * 60)) * 60 * 1000));
+      let dateString = date.getFullYear()
+        + '/' + ('0' + (date.getMonth() + 1)).slice(-2)
+        + '/' + ('0' + date.getDate()).slice(-2)
+        + ' ' + ('0' + date.getHours()).slice(-2)
+        + ':' + ('0' + date.getMinutes()).slice(-2)
+        + ':' + ('0' + date.getSeconds()).slice(-2)
+      await client.v2.tweet(`ツイート中にエラーが発生しました。 \n ${dateString}`);
       return error;
     }
   },
