@@ -60,7 +60,6 @@ async function start() {
 
 async function learning() {
   learn.learnTokens();
-  learn.learnTemplates();
 }
 
 async function tweet(replyTweet) {
@@ -82,28 +81,7 @@ async function tweet(replyTweet) {
   /** @type {string[]} */
   let word = [noun[target].text, particle[target2].text, noun[target3].text, particle[target6].text, verb[target4].text, auxiliary_verb[target5].text];
 
-  let template;
-  if (useTemplateId === 1) {
-    template = await generate.connect(word, `
-    1は2🤯
-    ※ボットのテストです
-    `);
-  } else if (useTemplateId === 2) {
-    template = await generate.connect(word, `
-    123456🤔
-    ※ボットのテストです
-    `);
-  } else if (useTemplateId === 3) {
-    template = await generate.connect(word, `
-    1ってなんだ🤔？
-    ※ボットのテストです
-    `);
-  } else {
-    template = await generate.connect(word, `
-    123456🤔
-    ※ボットのテストです
-    `);
-  }
+  let template = await generate.connect();
 
   if (isIncludes(banned_word.banned, template)) {
     tweet(replyTweet);

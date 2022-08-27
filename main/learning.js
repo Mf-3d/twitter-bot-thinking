@@ -8,7 +8,7 @@ module.exports = {
   async learnTokens() {
     /** @type {{text: string}[]} */let result = [];
 
-    let timeline = await twitter.getUserTimeline('1367151006824296451');
+    let timeline = await twitter.getUserTimeline('1542826170000977921');
     // let timeline = await twitter.getTimeline();
     /** @type {import('twitter-api-v2').TweetV2[]} */let filtered_timeline = [];
   
@@ -64,7 +64,7 @@ module.exports = {
   async learnTemplates() {
     /** @type {{text: string}[]} */let result = [];
 
-    let timeline = await twitter.getUserTimeline('1367151006824296451');
+    let timeline = await twitter.getUserTimeline('1542826170000977921');
     // let timeline = await twitter.getTimeline();
     /** @type {import('twitter-api-v2').TweetV2[]} */let filtered_timeline = [];
   
@@ -77,9 +77,9 @@ module.exports = {
     let target = Math.floor(Math.random() * ((filtered_timeline.length - 1) - 0) + 0);
     let target2 = Math.floor(Math.random() * ((filtered_timeline.length - 1) - 0) + 0);
   
-    let tweet_tokens = await generate.tokenize(filtered_timeline[target].text);
-    let tweet_tokens2 = await generate.tokenize(filtered_timeline[target2].text);
-  
+    // let tweet_tokens = await generate.tokenize(filtered_timeline[target].text);
+    // let tweet_tokens2 = await generate.tokenize(filtered_timeline[target2].text);
+    let tweet_tokens = await generate.tokenize(`SD450でも割と使える`);
   
     tweet_tokens.forEach(async (tweet_token) => {
       if (result.length >= 7) return;
