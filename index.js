@@ -25,7 +25,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(webhookHandler);
 
 webhookHandler.on('*', function(type, repo, data) {
-  if (type !== 'push') return;
+  // if (type !== 'push') return;
   let date = new Date(Date.now() + ((new Date().getTimezoneOffset() + (9 * 60)) * 60 * 1000));
   let dateString = date.getFullYear()
     + '/' + ('0' + (date.getMonth() + 1)).slice(-2)
