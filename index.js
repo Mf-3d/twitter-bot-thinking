@@ -25,7 +25,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(webhookHandler);
 
 webhookHandler.on('*', function(type, repo, data) {
-  // if (type !== 'push') return;
+  if (type !== 'push') return;
   let date = new Date(Date.now() + ((new Date().getTimezoneOffset() + (9 * 60)) * 60 * 1000));
   let dateString = date.getFullYear()
     + '/' + ('0' + (date.getMonth() + 1)).slice(-2)
@@ -33,12 +33,11 @@ webhookHandler.on('*', function(type, repo, data) {
     + ' ' + ('0' + date.getHours()).slice(-2)
     + ':' + ('0' + date.getMinutes()).slice(-2)
     + ':' + ('0' + date.getSeconds()).slice(-2)
-  data.commits.forEach((commit) => {
-    twitter.tweet(`
-    "${commit.message}"がコミットされました🤔\n${dateString}
-    ${commit.url}
-    `);
-  });
+
+  twitter.tweet(`
+  "${data.head_commit.message}"がコミットされました🤔\n${dateString}
+  ${data.head_commit.commit.url}
+  `);
 
   console.log(data, type);
 });
