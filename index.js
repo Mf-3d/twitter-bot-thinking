@@ -39,6 +39,8 @@ webhookHandler.on('*', function(type, repo, data) {
     ${commit.url}
     `);
   });
+
+  console.log(data, push);
 });
 
 async function start() {
