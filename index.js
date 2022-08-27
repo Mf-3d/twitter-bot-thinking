@@ -36,7 +36,7 @@ webhookHandler.on('*', function(type, repo, data) {
 
   twitter.tweet(`
   "${data.head_commit.message}"がコミットされました🤔\n${dateString}
-  ${data.head_commit.commit.url}
+  ${data.head_commit.url}
   `);
 
   console.log(data, type);
