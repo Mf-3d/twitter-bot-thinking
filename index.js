@@ -40,7 +40,7 @@ webhookHandler.on('*', function(type, repo, data) {
     `);
   });
 
-  console.log(data, push);
+  console.log(data, type);
 });
 
 async function start() {
