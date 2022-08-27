@@ -206,6 +206,7 @@ twitter.event.on('replied', async (reply) => {
 
 
   let negaposi = await emotion.analysis(await generate.tokenize(reply.data.text));
+  negaposi += 0.02;
   console.log('ネガポジ値を取得しました');
   await action.updateFavoRate(negaposi, reply.data.author_id);
   
