@@ -37,10 +37,12 @@ module.exports = {
   /** 
   * 好感度を取得
   * @param {string} user
-  * @return {number}
+  * @return {Promise<number>}
   */
   async getFavoRate(user) {
     let users = (JSON.parse(fs.readFileSync(`${__dirname}/../users.db`)));
+    if(!users.users[user]) users.users[user].favoRate = 0;
+    
     return users.users[user].favoRate;
   }
 }

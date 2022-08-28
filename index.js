@@ -172,7 +172,7 @@ const job4 = schedule.scheduleJob('0 34 18 * * *', () => {
 twitter.event.on('replied', async (reply) => {
   twitter.like(reply.data.id);
   console.log('リプされました', reply.data.id);
-  let favoRate = action.getFavoRate(reply.data.author_id);
+  let favoRate = await action.getFavoRate(reply.data.author_id);
 
   
   
