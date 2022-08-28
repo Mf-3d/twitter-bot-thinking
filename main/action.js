@@ -28,7 +28,8 @@ module.exports = {
       return sum + element;
     }, 0);
 
-    users.users[user].favoRate = Math.round(favoRate * 100) / 100;
+
+    users.users[user].favoRate = (Math.round(favoRate * 100) / 100) / users.users[user].recentNegaposi.length;
     users.users[user].last_seen = new Date();
     fs.writeFileSync(`${__dirname}/../users.db`, JSON.stringify(users, null, "\t"));
   },

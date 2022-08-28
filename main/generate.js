@@ -135,8 +135,8 @@ module.exports = {
         if (word[i].word[wordData.word.length - 1] === 'し' && wordData.detail === '動詞' && word[i + 1].word[0] === 'だ' && word[i + 1].detail === '助動詞') word[i + 1].word = 'たんだっけか';
         if(isIncludes(symbol, wordData.word) && wordData.detail === '名詞') wordData.word === 'CPU';
         if (word[i].word[wordData.word.length - 1] === 'っ' && wordData.detail === '動詞' && word[i + 1].word[0] === 'う' && word[i + 1].detail === '助動詞') word[i + 1].word = 'てね';
-        if (wordData.word === 'てる' && wordData.detail === '動詞') wordData.word = '似てる';
-        if (word[i].word === 'まし' && wordData.detail === '助動詞') wordData.word = 'し';
+        if (word[i].word === 'てる' && word[i].pos === '動詞') word[i].word = '似てる';
+        if (word[i].word === 'まし' && word[i].pos === '助動詞') word[i].word = 'し';
         if (word[i].word[wordData.word.length - 1] === 'う' && wordData.detail === '動詞' && word[i + 1].word[0] === 'た' && word[i + 1].detail === '助動詞') word[i + 1].word = 'か';
         if (word[i].word[wordData.word.length - 1] === 'う' && wordData.detail === '動詞' && word[i + 1].word[0] === 'だ' && word[i + 1].detail === '助動詞') wordData.word = 'あっ';
         if (wordData.word[0] === 'だ' && wordData.detail === '助動詞' && word[i - 1].word[word[i - 1].length - 1] === 'っ' && word[i - 1].detail === '動詞') wordData.word = 'た';
