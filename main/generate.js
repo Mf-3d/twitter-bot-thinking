@@ -122,15 +122,20 @@ module.exports = {
       try {
         console.log('test2 > ', word[i]);
         if (word[i].word === 'て' && word[i].detail === 'particle_before_verb') word[i].word = 'が';
-        if (word[i - 2].word === 'て' && word[i].word === 'に' && word[i].detail === 'particle_before_verb') word[i].word = 'は'; 
-        if (word[wordData.i - 2].word === 'て' && wordData.word === 'から' && wordData.detail === 'particle_before_verb' && word[i - 2].detail === 'normal_particle') word[wordData.i - 2].word === 'が';
-  
-        if (word[i].word === 'の' && word[i - 2] === 'の' && word[i - 2].detail === 'normal_particle') word[i - 2].word = 'を';
-        if (wordData.word === 'か' && wordData.detail === 'particle_before_verb') wordData.word = 'が';
-        if (word[wordData.i - 2] === 'が' && word[wordData.i - 2].detail === 'normal_particle' && wordData.detail === 'particle_before_verb') {
-          word[wordData.i - 2] = 'は';
-          wordData.word = 'で';
-        }
+        
+
+        if (word[wordData.i - 2]) {
+          if (word[i - 2].word === 'て' && word[i].word === 'に' && word[i].detail === 'particle_before_verb') word[i].word = 'は'; 
+          if (word[wordData.i - 2].word === 'て' && wordData.word === 'から' && wordData.detail === 'particle_before_verb' && word[i - 2].detail === 'normal_particle') word[wordData.i - 2].word === 'が';
+    
+          if (word[i].word === 'の' && word[i - 2] === 'の' && word[i - 2].detail === 'normal_particle') word[i - 2].word = 'を';
+          if (wordData.word === 'か' && wordData.detail === 'particle_before_verb') wordData.word = 'が';
+          if (word[wordData.i - 2] === 'が' && word[wordData.i - 2].detail === 'normal_particle' && wordData.detail === 'particle_before_verb') {
+            word[wordData.i - 2] = 'は';
+            wordData.word = 'で';
+          }   
+        }     
+       
 
         if (word[i].word[wordData.word.length - 1] === 'し' && wordData.detail === '動詞' && word[i + 1].word[0] === 'だ' && word[i + 1].detail === '助動詞') word[i + 1].word = 'たんだっけか';
         if(isIncludes(symbol, wordData.word) && wordData.detail === '名詞') wordData.word === 'CPU';
@@ -141,12 +146,10 @@ module.exports = {
         if (word[i].word[wordData.word.length - 1] === 'う' && wordData.detail === '動詞' && word[i + 1].word[0] === 'だ' && word[i + 1].detail === '助動詞') wordData.word = 'あっ';
         if (wordData.word[0] === 'だ' && wordData.detail === '助動詞' && word[i - 1].word[word[i - 1].length - 1] === 'っ' && word[i - 1].detail === '動詞') wordData.word = 'た';
         if (wordData.word === 'う' && wordData.detail === '助動詞' && word[i - 1].word[word[i - 1].length - 1] === 'き' && word[i - 1].detail === '動詞') wordData.word = 'いたわ';
-        // if (word[4][word[4].length - 1] === 'よ' && word[5][0] === 'た') word[5] = 'か';
-        // if (wordData.word !== 'だ' && wordData.detail === '動詞' && word[5] === 'しな') wordData.word = 'だ';
-        // if (word[4][word[4].length - 1] !== 'る' && word[5][0] === 'た') word[5][0] = 'か';
-        // if (word[4][word[4].length - 1] === 'よ' && word[5][0] === 'ま') word[5][0] = 'で';
+        if (wordData.word[0] === 'だ' && wordData.detail === '助動詞' && word[i - 1].word[word[i - 1].length - 1] === '寝' && word[i - 1].detail === '動詞') wordData.word = 'た';
+        if (wordData.word === 'だ' && wordData.detail === '助動詞' && word[i - 1].word[word[i - 1].length - 1] === 'る' && word[i - 1].detail === '動詞') wordData.word = 'か';
       } catch (e) {
-        
+        console.log(e);
       }
     });
        
@@ -215,5 +218,5 @@ module.exports = {
 
 
     return result;
-  }
+  },
 }

@@ -78,10 +78,6 @@ async function tweet(replyTweet) {
   let target5 = Math.floor(Math.random() * ((auxiliary_verb.length - 1) - 0) + 0);
   let target6 = Math.floor(Math.random() * ((auxiliary_verb.length - 1) - 0) + 0);
 
-  // template
-  /** @type {string[]} */
-  let word = [noun[target].text, particle[target2].text, noun[target3].text, particle[target6].text, verb[target4].text, auxiliary_verb[target5].text];
-
   let template = await generate.connect();
 
   if (isIncludes(banned_word.banned, template)) {
@@ -174,7 +170,7 @@ twitter.event.on('replied', async (reply) => {
   console.log('リプされました', reply.data.id);
   let favoRate = await action.getFavoRate(reply.data.author_id);
 
-  
+  let isQuestion = await action.isQuestions(reply.data.text);
   
   let replyChance = undefined;
   console.log(reply.data.source);
@@ -203,37 +199,36 @@ twitter.event.on('replied', async (reply) => {
     return;
   }
 
-  if (reply.data.text.toLowerCase().includes(JSON.parse(process.env.REPLY_SECRET_WORD).query)) {
-    twitter.reply(JSON.parse(process.env.REPLY_SECRET_WORD).value, reply.data.id);
-    return;
-  }
-
 
   let negaposi = await emotion.analysis(await generate.tokenize(reply.data.text));
   negaposi += 0.02;
   console.log('ネガポジ値を取得しました');
   await action.updateFavoRate(negaposi, reply.data.author_id);
 
-
+  if (isQuestion >= 0.01) {
+    twitter.reply('...🤔 \n我は知らん \n※疑問文と認識しました', reply.data.id);
+    return;
+  }
+  
   if (favoRate < 0) negaposi -= favoRate / 2;
   if (favoRate > 0) negaposi += favoRate;
   
-  if (negaposi < 0 && negaposi > -0.05) {
+  if (negaposi < 0 && negaposi > -0.05 && (Math.round(Math.random() * (0 - 1) + 1) === 1)) {
     twitter.reply('...🤔', reply.data.id);
     return;
   }
 
-  if (negaposi <= -0.05 && negaposi > -0.1) {
+  if (negaposi <= -0.05 && negaposi > -0.1 && (Math.round(Math.random() * (0 - 1) + 1) === 1)) {
     twitter.reply('ほう...😔', reply.data.id);
     return;
   }
 
-  if (negaposi > 0.02 && negaposi <= 0.05) {
+  if (negaposi > 0.02 && negaposi <= 0.05 && (Math.round(Math.random() * (0 - 1) + 1) === 1)) {
     twitter.reply('お㍂🤔', reply.data.id);
     return;
   }
   
-  if (negaposi > 0.05) {
+  if (negaposi > 0.05 && (Math.round(Math.random() * (0 - 1) + 1) === 1)) {
     twitter.reply('おぉ🤯', reply.data.id);
     return;
   }
