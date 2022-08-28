@@ -23,7 +23,7 @@
     "express": "^4.18.1",
     "express-github-webhook": "^1.0.6",
     "kuromoji": "^0.1.2",
-    "needle": "^3.1.0",
+    "negaposi-analyzer-ja": "^1.0.1",
     "node-schedule": "^2.1.0",
     "request": "^2.88.2",
     "twitter": "^1.7.1",

@@ -19,7 +19,19 @@ module.exports = {
    * @return {Promise<twitter.TweetV2PostTweetResult>} Tweet data
    */
   async tweet(text) {
-    return await client.v2.tweet(text);
+    try {
+      return await client.v2.tweet(text);
+    } catch (error) {
+      let date = new Date(Date.now() + ((new Date().getTimezoneOffset() + (9 * 60)) * 60 * 1000));
+      let dateString = date.getFullYear()
+        + '/' + ('0' + (date.getMonth() + 1)).slice(-2)
+        + '/' + ('0' + date.getDate()).slice(-2)
+        + ' ' + ('0' + date.getHours()).slice(-2)
+        + ':' + ('0' + date.getMinutes()).slice(-2)
+        + ':' + ('0' + date.getSeconds()).slice(-2)
+      await client.v2.tweet(`ツイート中にエラーが発生しました。 \n ${dateString}`);
+      return error;
+    }
   },
 
   async getTimeline() {
@@ -50,7 +62,8 @@ module.exports = {
     return await client.v2.singleTweet(tweetId, {
       expansions: [
         'author_id'
-      ]
+      ],
+      "tweet.fields": "source"
     });
   },
 
@@ -66,11 +79,16 @@ module.exports = {
   async like(tweetId) {
     let userId = (await client.v2.userByUsername('thinkingService')).data.id;
     await client.v2.like(userId, tweetId)
+  },
+
+  async updateBio(text) {
+    await client.v1.updateAccountProfile({ description: text });
   }
 }
 
 
-stream.on('replied', (tweet) => {
+stream.on('replied', /** @param {twitter.TweetV2SingleResult} tweet */ (tweet) => {
+  
   emitter.emit('replied', tweet);
   console.log('replied')
 });

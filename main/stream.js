@@ -31,9 +31,17 @@ async function getStream() {
     if (isARt || tweet.data.author_id === '1542826170000977921') {
       return;
     }
+
+    /** @type {twitter.TweetV2SingleResult} */
+    let result = await client.v2.singleTweet(tweet.data.id, {
+      expansions: [
+        'author_id'
+      ],
+      "tweet.fields": "source"
+    });
   
     // Reply to tweet
-    emitter.emit('replied', tweet);
+    emitter.emit('replied', result);
   });
 }
 
