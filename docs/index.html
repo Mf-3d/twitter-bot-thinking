@@ -4,6 +4,7 @@
   <head>
     <title>[thinking]Bot-wiki</title>
     <link rel="shortcut icon" href="img/favicon.ico">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <!-- SNS用設定 -->
     <meta property="og:description" content="thinking-Groupが運営・管理するTwitter専用のBotを紹介するサイトです。"/>
     <!-- 一般 -->
@@ -12,7 +13,20 @@
     <meta name="copyright" content="© thinking-Group 2022"/>
     <link rel="stylesheet" href="css/setting.css">
     <link rel="stylesheet" href="script/setting.js">
+    <script>
+      $(function() {
+    setTimeout(function(){
+      $('.logo_fadein p').fadeIn(500);
+    },200);
+    setTimeout(function(){
+      $('.logo_fadein').fadeOut(500);
+    },1500);
+  });
+    </script>
   </head>
   <body>
+    <div class="logo_fadein">
+      <p><img src="img/thinking.logo.png" alt="" width="500px"></p>
+    </div>
   </body>
 </html>
