@@ -183,21 +183,21 @@ twitter.event.on('replied', async (reply) => {
   }
 
   
-  if (reply.data.text.includes('waryu')) {
-    let word = ['w', 'a', 'r', 'y', 'u'];
-    let rnd = [
-      Math.floor(Math.random() * ((word.length - 1) - 1)) + 1,
-      Math.floor(Math.random() * ((word.length - 1) - 1)) + 1,
-      Math.floor(Math.random() * ((word.length - 1) - 1)) + 1,
-      Math.floor(Math.random() * ((word.length - 1) - 1)) + 1,
-      Math.floor(Math.random() * ((word.length - 1) - 1)) + 1
-    ];
+  // if (reply.data.text.includes('waryu')) {
+  //   let word = ['w', 'a', 'r', 'y', 'u'];
+  //   let rnd = [
+  //     Math.floor(Math.random() * ((word.length - 1) - 1)) + 1,
+  //     Math.floor(Math.random() * ((word.length - 1) - 1)) + 1,
+  //     Math.floor(Math.random() * ((word.length - 1) - 1)) + 1,
+  //     Math.floor(Math.random() * ((word.length - 1) - 1)) + 1,
+  //     Math.floor(Math.random() * ((word.length - 1) - 1)) + 1
+  //   ];
 
-    let waryu = `${word[rnd[0]]}${word[rnd[1]]}${word[rnd[2]]}${word[rnd[3]]}${word[rnd[4]]}`
+  //   let waryu = `${word[rnd[0]]}${word[rnd[1]]}${word[rnd[2]]}${word[rnd[3]]}${word[rnd[4]]}`
 
-    twitter.reply(waryu, reply.data.id);
-    return;
-  }
+  //   twitter.reply(waryu, reply.data.id);
+  //   return;
+  // }
 
 
   let negaposi = await emotion.analysis(await generate.tokenize(reply.data.text));
@@ -206,7 +206,29 @@ twitter.event.on('replied', async (reply) => {
   await action.updateFavoRate(negaposi, reply.data.author_id);
 
   if (isQuestion >= 0.01) {
-    twitter.reply('...🤔 \n我は知らん \n※疑問文と認識しました', reply.data.id);
+    let replyTemplate = Math.round(Math.random() * (7 - 0) + 0);  
+    if(replyTemplate === 1) {
+      twitter.reply('...🤔 \n我は知らん \n※疑問文と認識しました', reply.data.id);
+      return;
+    }
+
+    if(replyTemplate === 2) {
+      twitter.reply('知らんなあ \n※疑問文と認識しました', reply.data.id);
+      return;
+    }
+
+    
+    if(replyTemplate === 3) {
+      twitter.reply('...🤔 \n※疑問文と認識しました', reply.data.id);
+      return;
+    }
+
+    if(replyTemplate === 4) {
+      twitter.reply('...🤔 \n※疑問文と認識しました', reply.data.id);
+      return;
+    }
+    
+    twitter.reply('🤔 \n※疑問文と認識しました', reply.data.id);
     return;
   }
   
