@@ -31,5 +31,15 @@ module.exports = {
     users.users[user].favoRate = Math.round(favoRate * 100) / 100;
     users.users[user].last_seen = new Date();
     fs.writeFileSync(`${__dirname}/../users.db`, JSON.stringify(users, null, "\t"));
+  },
+  
+  /** 
+  * 好感度を取得
+  * @param {string} user
+  * @return {number}
+  */
+  async getFavoRate(user) {
+    let users = (JSON.parse(fs.readFileSync(`${__dirname}/../users.db`)));
+    return users.users[user].favoRate;
   }
 }

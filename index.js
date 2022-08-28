@@ -172,10 +172,11 @@ const job4 = schedule.scheduleJob('0 34 18 * * *', () => {
 twitter.event.on('replied', async (reply) => {
   twitter.like(reply.data.id);
   console.log('リプされました', reply.data.id);
+  let favoRate = action
   let replyChance = undefined;
   console.log(reply.data.source);
   
-  if (!isIncludes(['for iPad', 'for Android', 'for Mac', 'for iPhone', 'Twitter Web App'], reply.data.source)) {
+  if (!isIncludes(['Twitter for iPad', 'Twitter for Android', 'Twitter for Mac', 'Twitter for iPhone', 'Twitter Web App'], reply.data.source)) {
     console.log('このリプはbotのリプの可能性があります\n対botモードで対応します');
     replyChance = Math.random() * (1 - -1) + -1;
 
@@ -220,7 +221,7 @@ twitter.event.on('replied', async (reply) => {
     return;
   }
 
-  if (negaposi > 0 && negaposi <= 0.05) {
+  if (negaposi > 0.02 && negaposi <= 0.05) {
     twitter.reply('お㍂🤔', reply.data.id);
     return;
   }
