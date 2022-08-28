@@ -215,8 +215,8 @@ twitter.event.on('replied', async (reply) => {
   await action.updateFavoRate(negaposi, reply.data.author_id);
 
 
-  if (favoRate < 0) negaposi -= favoRate / 10;
-  if (favoRate > 0) negaposi += favoRate / 10;
+  if (favoRate < 0) negaposi -= favoRate / 2;
+  if (favoRate > 0) negaposi += favoRate;
   
   if (negaposi < 0 && negaposi > -0.05) {
     twitter.reply('...🤔', reply.data.id);
