@@ -172,7 +172,10 @@ const job4 = schedule.scheduleJob('0 34 18 * * *', () => {
 twitter.event.on('replied', async (reply) => {
   twitter.like(reply.data.id);
   console.log('リプされました', reply.data.id);
-  let favoRate = action
+  let favoRate = action.getFavoRate(reply.data.author_id);
+
+  
+  
   let replyChance = undefined;
   console.log(reply.data.source);
   
@@ -210,6 +213,10 @@ twitter.event.on('replied', async (reply) => {
   negaposi += 0.02;
   console.log('ネガポジ値を取得しました');
   await action.updateFavoRate(negaposi, reply.data.author_id);
+
+
+  if (favoRate < 0) negaposi -= favoRate / 10;
+  if (favoRate > 0) negaposi += favoRate / 10;
   
   if (negaposi < 0 && negaposi > -0.05) {
     twitter.reply('...🤔', reply.data.id);
