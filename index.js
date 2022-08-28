@@ -206,29 +206,7 @@ twitter.event.on('replied', async (reply) => {
   await action.updateFavoRate(negaposi, reply.data.author_id);
 
   if (isQuestion >= 0.01) {
-    let replyTemplate = Math.round(Math.random() * (7 - 0) + 0);  
-    if(replyTemplate === 1) {
-      twitter.reply('...🤔 \n我は知らん \n※疑問文と認識しました', reply.data.id);
-      return;
-    }
-
-    if(replyTemplate === 2) {
-      twitter.reply('知らんなあ \n※疑問文と認識しました', reply.data.id);
-      return;
-    }
-
-    
-    if(replyTemplate === 3) {
-      twitter.reply('...🤔 \n※疑問文と認識しました', reply.data.id);
-      return;
-    }
-
-    if(replyTemplate === 4) {
-      twitter.reply('...🤔 \n※疑問文と認識しました', reply.data.id);
-      return;
-    }
-    
-    twitter.reply('🤔 \n※疑問文と認識しました', reply.data.id);
+    twitter.reply('疑問文には答えられん、、😔', reply.data.id)    
     return;
   }
   
@@ -251,7 +229,7 @@ twitter.event.on('replied', async (reply) => {
   }
   
   if (negaposi > 0.05 && (Math.round(Math.random() * (0 - 1) + 1) === 1)) {
-    twitter.reply('おぉ🤯', reply.data.id);
+    twitter.reply('🤯', reply.data.id);
     return;
   }
 

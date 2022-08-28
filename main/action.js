@@ -55,8 +55,10 @@ module.exports = {
       if(token.surface_form === '!？') probabilityOfQuestion += 0.01;
       if(tokens[i - 1]) {
         if(tokens[i - 1].surface_form.includes('なん')) probabilityOfQuestion += 0.05;
+          if(tokens[i - 1].surface_form.includes('だい')) probabilityOfQuestion += 0.01;
         else if(tokens[i - 1].surface_form.includes('なの')) probabilityOfQuestion += 0.05;
         if(token.surface_form.includes('なんですか') && tokens[i - 1]) probabilityOfQuestion += 0.1;
+        if(token.surface_form.includes('でしょうか') && tokens[i - 1]) probabilityOfQuestion += 0.1;
         if(token.surface_form.includes('なんやろ') && tokens[i - 1]) probabilityOfQuestion += 0.1;
       }
     });

@@ -134,6 +134,21 @@ module.exports = {
             word[wordData.i - 2] = 'は';
             wordData.word = 'で';
           }   
+          if (word[wordData.i - 2] === 'に' && word[wordData.i - 2].detail === 'normal_particle' && wordData.detail === 'particle_before_verb' && wordData.word.includes('を')) {
+            word[wordData.i - 2] = 'が';
+            wordData.word = 'で';
+          }  
+          if (word[wordData.i - 2] === 'て' && word[wordData.i - 2].detail === 'normal_particle' && wordData.detail === 'particle_before_verb' && wordData.word.includes('の')) {
+            word[wordData.i - 2] = 'て';
+            wordData.word = 'に';
+          } 
+          if (word[wordData.i - 2] === 'しか' && word[wordData.i - 2].detail === 'normal_particle' && wordData.detail === 'particle_before_verb' && wordData.word.includes('の')) {
+            word[wordData.i - 2] = 'だけ';
+            wordData.word = '';
+          } 
+          if (wordData.pos === '助詞' && wordData.word.includes('ね')) {
+            wordData.word = '、';
+          } 
         }     
        
 
@@ -148,6 +163,7 @@ module.exports = {
         if (wordData.word === 'う' && wordData.detail === '助動詞' && word[i - 1].word[word[i - 1].length - 1] === 'き' && word[i - 1].detail === '動詞') wordData.word = 'いたわ';
         if (wordData.word[0] === 'だ' && wordData.detail === '助動詞' && word[i - 1].word[word[i - 1].length - 1] === '寝' && word[i - 1].detail === '動詞') wordData.word = 'た';
         if (wordData.word === 'だ' && wordData.detail === '助動詞' && word[i - 1].word[word[i - 1].length - 1] === 'る' && word[i - 1].detail === '動詞') wordData.word = 'か';
+        if (wordData.word[wordData.word.length - 1] === 'っ' && wordData.detail === '動詞' && word[i + 1].word[0] === 'ま' && word[i - 1].detail === '動詞') wordData.word[wordData.length - 1] = 'い';
       } catch (e) {
         console.log(e);
       }
