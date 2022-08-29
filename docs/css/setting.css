@@ -16,3 +16,9 @@
 	display: none;
 	z-index: 9999;
 }
+
+.card {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
