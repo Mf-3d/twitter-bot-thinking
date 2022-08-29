@@ -70,10 +70,12 @@ module.exports = {
   event: emitter,
 
   async reply(text, tweetId) {
-    await client.v2.reply(
-      text,
-      tweetId
-    );
+    try {
+      await client.v2.reply(
+        text,
+        tweetId
+      );
+    } catch (e) {}
   },
 
   async like(tweetId) {

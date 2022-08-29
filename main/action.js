@@ -42,7 +42,15 @@ module.exports = {
   */
   async getFavoRate(user) {
     let users = (JSON.parse(fs.readFileSync(`${__dirname}/../users.db`)));
-    if(!users.users[user]) users.users[user].favoRate = 0;
+    if(!users.users[user]) {
+      users.users[user] = {
+        id: user,
+        interested: [],
+        recentNegaposi: [],
+        favoRate: 0,
+        last_seen: new Date()
+      }
+    }
     
     return users.users[user].favoRate;
   },
@@ -54,15 +62,48 @@ module.exports = {
       if(token.surface_form === '？') probabilityOfQuestion += 0.05;
       if(token.surface_form === '!？') probabilityOfQuestion += 0.01;
       if(tokens[i - 1]) {
+        if(token.surface_form === '？' && tokens[i - 1].surface_form.includes('（')) probabilityOfQuestion -= 0.06;
         if(tokens[i - 1].surface_form.includes('なん')) probabilityOfQuestion += 0.05;
           if(tokens[i - 1].surface_form.includes('だい')) probabilityOfQuestion += 0.01;
         else if(tokens[i - 1].surface_form.includes('なの')) probabilityOfQuestion += 0.05;
         if(token.surface_form.includes('なんですか') && tokens[i - 1]) probabilityOfQuestion += 0.1;
         if(token.surface_form.includes('でしょうか') && tokens[i - 1]) probabilityOfQuestion += 0.1;
         if(token.surface_form.includes('なんやろ') && tokens[i - 1]) probabilityOfQuestion += 0.1;
+        if(token.surface_form.includes('か') && tokens[i - 1]) probabilityOfQuestion += 0.05;
       }
     });
 
     return probabilityOfQuestion;
+  },
+
+  async questionAnswer(text) {
+    
+  },
+
+  async saveQueue(type, data) {
+    let queues = (JSON.parse(fs.readFileSync(`${__dirname}/../queues.json`)));
+
+    queues.queues[queues.queues.length] = {
+      type,
+      data,
+      addedDate: new Date()
+    }
+    
+    fs.writeFileSync(`${__dirname}/../queues.json`, JSON.stringify(queues, null, "\t"));
+
+    return queues.queues.length - 1;
+  },
+
+  async getQueue() {
+    let queues = (JSON.parse(fs.readFileSync(`${__dirname}/../queues.json`)));
+
+    return queues;
+  },
+
+  async deleteQueue(number) {
+    let queues = (JSON.parse(fs.readFileSync(`${__dirname}/../queues.json`)));
+    console.log(number);    
+    queues.queues.splice(number, 1);
+    fs.writeFileSync(`${__dirname}/../queues.json`, JSON.stringify(queues, null, "\t"));
   }
 }

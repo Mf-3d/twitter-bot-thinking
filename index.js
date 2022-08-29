@@ -9,10 +9,10 @@ const express = require('express');
 const { Webhook } = require('discord-webhook-node');
 const GithubWebHook = require('express-github-webhook');
 
-const hook = new Webhook(process.env.discord_webhook);
+// const hook = new Webhook(process.env.discord_webhook);
 
-hook.setUsername('thinking Bot（仮）のTwitter通知');
-hook.setAvatar('https://pbs.twimg.com/profile_images/1561649021084913664/1CZezFH3_400x400.jpg');
+// hook.setUsername('thinking Bot（仮）のTwitter通知');
+// hook.setAvatar('https://pbs.twimg.com/profile_images/1561649021084913664/1CZezFH3_400x400.jpg');
 
 const webhookHandler = GithubWebHook({ path: '/webhook', secret: process.env.github_webhook_secret });
 const banned_word = require('./banned_word.json');
@@ -44,7 +44,7 @@ webhookHandler.on('*', function(type, repo, data) {
 });
 
 async function start() {
-  hook.send("鯖が起動したぞ");
+  // hook.send("鯖が起動したぞ");
   // const tokenArr = (await generate.tokenize('私は定期的にツイートを学習します。')).map((token)=>{
   //   return token.surface_form
   // });
@@ -57,6 +57,7 @@ async function start() {
   // ※このBotがツイートすることはほぼすべて自動生成です
   // `);
   tweet();
+  replyCheck();
 }
 
 async function learning() {
@@ -85,7 +86,7 @@ async function tweet(replyTweet) {
     return;
   }
 
-  hook.send(`\`\`\`${template}\`\`\`をツイートします🤔`);
+  // hook.send(`\`\`\`${template}\`\`\`をツイートします🤔`);
 
   if (replyTweet) {
     twitter.reply(template, replyTweet);
@@ -112,6 +113,8 @@ function getData(pos = '名詞') {
 (function loop() {
   let Rand = Math.round(Math.random() * (18 - 7)) + 7;
   setTimeout(function() {
+
+    
     let now = new Date();
     if(now.getHours() >= 14 && now.getHours() < 21) return;
     
@@ -147,6 +150,34 @@ function getData(pos = '名詞') {
   }, 5 * 60000);
 })();
 
+(function loop3() {
+  let Rand = Math.round(Math.random() * (1 - 0.2)) + 0.2;
+  setTimeout(async function () {
+    replyCheck();
+    loop3();
+  }, Rand * 60000);
+})();
+
+async function replyCheck () {
+  let queues = await action.getQueue();
+
+  if(queues.queues.length > 0) {
+   　await action.deleteQueue(0);
+    await replyTweet(queues.queues[0].data.reply);
+
+    if(queues.queues.length === 1) return;
+    
+    queues.queues.forEach(async (queue, queueNumber) => {
+      if(queueNumber === 0) return;
+      let Rand2 = Math.round(Math.random() * (0.8 - 0.2)) + 0.2;
+      setTimeout(async function() {
+        await action.deleteQueue(queueNumber);
+        await replyTweet(queue.data.reply);
+      }, Rand2 * 60000);
+    });
+  }
+}
+
 const job1 = schedule.scheduleJob('0 0 21 * * *', () => {
   twitter.tweet('おはよう🤔');
 });
@@ -163,17 +194,15 @@ const job4 = schedule.scheduleJob('0 34 18 * * *', () => {
   twitter.tweet('33-4🤯');
 });
 
-
-
-twitter.event.on('replied', async (reply) => {
-  twitter.like(reply.data.id);
-  console.log('リプされました', reply.data.id);
+async function replyTweet (reply) {
   let favoRate = await action.getFavoRate(reply.data.author_id);
 
-  let isQuestion = await action.isQuestions(reply.data.text);
+  // let isQuestion = await action.isQuestions(reply.data.text);
   
   let replyChance = undefined;
   console.log(reply.data.source);
+  
+  
   
   if (!isIncludes(['Twitter for iPad', 'Twitter for Android', 'Twitter for Mac', 'Twitter for iPhone', 'Twitter Web App'], reply.data.source)) {
     console.log('このリプはbotのリプの可能性があります\n対botモードで対応します');
@@ -205,10 +234,10 @@ twitter.event.on('replied', async (reply) => {
   console.log('ネガポジ値を取得しました');
   await action.updateFavoRate(negaposi, reply.data.author_id);
 
-  if (isQuestion >= 0.01) {
-    twitter.reply('疑問文には答えられん、、😔', reply.data.id)    
-    return;
-  }
+  // if (isQuestion >= 0.01) {
+  //   twitter.reply('疑問文には答えられん、、😔', reply.data.id)    
+  //   return;
+  // }
   
   if (favoRate < 0) negaposi -= favoRate / 2;
   if (favoRate > 0) negaposi += favoRate;
@@ -234,6 +263,16 @@ twitter.event.on('replied', async (reply) => {
   }
 
   tweet(reply.data.id);
+}
+
+twitter.event.on('replied', async (reply) => {
+  twitter.like(reply.data.id);
+
+  let queueNumber = await action.saveQueue('reply', {
+    reply
+  });
+  
+  console.log('リプされました', reply.data.id);
 });
 
 app.get('/', (req, res) => {

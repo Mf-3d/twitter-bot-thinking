@@ -138,6 +138,10 @@ module.exports = {
             word[wordData.i - 2] = 'が';
             wordData.word = 'で';
           }  
+          if (word[wordData.i - 2] === 'に' && word[wordData.i - 2].detail === 'normal_particle' && wordData.detail === 'particle_before_verb' && wordData.word.includes('の')) {
+            word[wordData.i - 2] = 'が';
+            wordData.word = 'を';
+          }  
           if (word[wordData.i - 2] === 'て' && word[wordData.i - 2].detail === 'normal_particle' && wordData.detail === 'particle_before_verb' && wordData.word.includes('の')) {
             word[wordData.i - 2] = 'て';
             wordData.word = 'に';
@@ -145,13 +149,16 @@ module.exports = {
           if (word[wordData.i - 2] === 'しか' && word[wordData.i - 2].detail === 'normal_particle' && wordData.detail === 'particle_before_verb' && wordData.word.includes('の')) {
             word[wordData.i - 2] = 'だけ';
             wordData.word = '';
-          } 
-          if (wordData.pos === '助詞' && wordData.word.includes('ね')) {
-            wordData.word = '、';
-          } 
+          }  
         }     
        
 
+        if (wordData.pos === '助詞' && wordData.word === 'ね') {
+          wordData.word = 'な';
+        } 
+        if (word[i].detail === 'particle_before_verb' && wordData.word === 'な') {
+          wordData.word = 'で';
+        }
         if (word[i].word[wordData.word.length - 1] === 'し' && wordData.detail === '動詞' && word[i + 1].word[0] === 'だ' && word[i + 1].detail === '助動詞') word[i + 1].word = 'たんだっけか';
         if(isIncludes(symbol, wordData.word) && wordData.detail === '名詞') wordData.word === 'CPU';
         if (word[i].word[wordData.word.length - 1] === 'っ' && wordData.detail === '動詞' && word[i + 1].word[0] === 'う' && word[i + 1].detail === '助動詞') word[i + 1].word = 'てね';
