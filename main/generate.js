@@ -138,6 +138,10 @@ module.exports = {
             word[wordData.i - 2] = 'が';
             wordData.word = 'で';
           }  
+          if (word[wordData.i - 2] === 'に' && word[wordData.i - 2].detail === 'normal_particle' && wordData.detail === 'particle_before_verb' && wordData.word.includes('の')) {
+            word[wordData.i - 2] = 'が';
+            wordData.word = 'を';
+          }  
           if (word[wordData.i - 2] === 'て' && word[wordData.i - 2].detail === 'normal_particle' && wordData.detail === 'particle_before_verb' && wordData.word.includes('の')) {
             word[wordData.i - 2] = 'て';
             wordData.word = 'に';
