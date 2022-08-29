@@ -70,5 +70,32 @@ module.exports = {
 
   async questionAnswer(text) {
     
+  },
+
+  async saveQueue(type, data) {
+    let queues = (JSON.parse(fs.readFileSync(`${__dirname}/../queues.json`)));
+
+    queues.queues[queues.queues.length] = {
+      type,
+      data,
+      addedDate: new Date()
+    }
+    
+    fs.writeFileSync(`${__dirname}/../queues.json`, JSON.stringify(queues, null, "\t"));
+
+    return queues.queues.length - 1;
+  },
+
+  async getQueue() {
+    let queues = (JSON.parse(fs.readFileSync(`${__dirname}/../queues.json`)));
+
+    return queues;
+  },
+
+  async deleteQueue(number) {
+    let queues = (JSON.parse(fs.readFileSync(`${__dirname}/../queues.json`)));
+    console.log(number);    
+    queues.queues.splice(number, 1);
+    fs.writeFileSync(`${__dirname}/../queues.json`, JSON.stringify(queues, null, "\t"));
   }
 }
