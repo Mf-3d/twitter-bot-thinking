@@ -42,7 +42,15 @@ module.exports = {
   */
   async getFavoRate(user) {
     let users = (JSON.parse(fs.readFileSync(`${__dirname}/../users.db`)));
-    if(!users.users[user]) users.users[user].favoRate = 0;
+    if(!users.users[user]) {
+      users.users[user] = {
+        id: user,
+        interested: [],
+        recentNegaposi: [],
+        favoRate: 0,
+        last_seen: new Date()
+      }
+    }
     
     return users.users[user].favoRate;
   },

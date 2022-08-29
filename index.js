@@ -164,6 +164,8 @@ async function replyCheck () {
   if(queues.queues.length > 0) {
    　await action.deleteQueue(0);
     await replyTweet(queues.queues[0].data.reply);
+
+    if(queues.queues.length === 1) return;
     
     queues.queues.forEach(async (queue, queueNumber) => {
       if(queueNumber === 0) return;
