@@ -22,3 +22,11 @@
 	padding: 0;
 	box-sizing: border-box;
 }
+
+.card-body {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-height: 100vh;
+	background: linear-gradient(45deg,#fdba61,#ff5acd);
+}
