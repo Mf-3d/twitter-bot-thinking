@@ -6,8 +6,6 @@
     <link rel="shortcut icon" href="img/logo.png">
     <link rel="stylesheet" href="https://thinking-grp.github.io/style/main.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://apis.google.com/js/platform.js" async defer></script>
-    <meta name="google-signin-client_id" content="<532961664202-pdr1jlptpvv8cm6lef1g6srcic8b991g.apps.googleusercontent.com>">
     <!-- SNS用設定 -->
     <meta property="og:description" content="thinking-Groupが運営・管理するTwitter専用のBotを紹介するサイトです。"/>
     <!-- 一般 -->
@@ -25,13 +23,6 @@
       $('.logo_fadein').fadeOut(500);
     },1500);
   });
-  function onSignIn(googleUser) {
-  var profile = googleUser.getBasicProfile();
-  console.log('ID: ' + profile.getId());
-  console.log('Name: ' + profile.getName());
-  console.log('Image URL: ' + profile.getImageUrl());
-  console.log('Email: ' + profile.getEmail());
-}
     </script>
   </head>
   <body>
@@ -48,6 +39,5 @@
       </div>
     </header>
     <div class="haeder">Hello!</div>
-    <div class="g-signin2" data-onsuccess="onSignIn"></div>
   </body>
 </html>
