@@ -5,8 +5,9 @@
 }
 
 
+@media screen and ( min-width:479px ){
 
-.backimg {
+	.backimg {
 	width: 100%;
 	height: 60%;
 	object-fit: cover;
@@ -29,6 +30,6 @@
 	width: 50%;
 	left: 25%;
 }
-
+}
 
 
