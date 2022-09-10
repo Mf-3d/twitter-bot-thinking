@@ -27,8 +27,7 @@
 	color: #FFF;
 	position: absolute;
 	top: 350px;
-	width: 50%;
-	left: 25%;
+	transform:translateX(100%)
 }
 }
 
