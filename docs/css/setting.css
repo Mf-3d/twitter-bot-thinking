@@ -9,6 +9,7 @@
 	height: 60%;
 	object-fit: cover;
 	filter: blur(4px);
+	margin: 0;
 }
 
 .logoimg {
