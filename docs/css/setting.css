@@ -1,22 +1,4 @@
 
-.logo_fadein{
-	background: #FFF;
-	position: fixed;
-	top: 0;
-	left: 0;
-	height: 100%;
-	width: 100%;
-	z-index: 9000;
-}
-.logo_fadein p {
-	position: fixed;
-	left: 50%;
-	top: 50%;
-	transform: translate(-50%, -50%);
-	display: none;
-	z-index: 9999;
-}
-
 .logo {	
 	width: 100%;
 	position: relative;
@@ -26,6 +8,7 @@
 	width: 100%;
 	height: 60%;
 	object-fit: cover;
+	filter: blur(4px);
 }
 
 .logoimg {
