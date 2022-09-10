@@ -4,6 +4,8 @@
 	position: relative;
 }
 
+
+
 .backimg {
 	width: 100%;
 	height: 60%;
@@ -24,7 +26,8 @@
 	color: #FFF;
 	position: absolute;
 	top: 350px;
-	left: 45%;
+	width: 50%;
+	left: 25%;
 }
 
 
