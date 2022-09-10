@@ -17,9 +17,31 @@
 	z-index: 9999;
 }
 
-.logo img {
+.logo {	
 	width: 100%;
-	display: block;
-  height: 700px;
-  object-fit: cover;
+	position: relative;
 }
+
+.backimg {
+	width: 100%;
+	height: 60%;
+	object-fit: cover;
+}
+
+.logoimg {
+	top: 100px;
+	width: 50%;
+	left: 25%;
+	position: absolute;
+}
+.logo p {
+	font-family: 'Press Start 2P', cursive;
+	font-size: 6.5em;
+	color: #FFF;
+	position: absolute;
+	top: 350px;
+	left: 45%;
+}
+
+
+
