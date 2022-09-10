@@ -20,4 +20,6 @@
 .logo img {
 	width: 100%;
 	display: block;
+  height: 700px;
+  object-fit: cover;
 }
