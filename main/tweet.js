@@ -85,6 +85,10 @@ module.exports = {
 
   async updateBio(text) {
     await client.v1.updateAccountProfile({ description: text });
+  },
+
+  async getTrends() {
+    return await client.v1.trendsAvailable();
   }
 }
 
