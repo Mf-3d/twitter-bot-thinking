@@ -116,7 +116,7 @@ module.exports = {
         }
 
         if(isIncludes(symbol, word[word.length - 1].word)) {
-          word[word.length - 1].word = getData('名詞')[Math.floor(Math.random() * ((getData('名詞').length - 1) - 0) + 0)].text;
+          word[word.length - 1].word = '😟';
         }
       });
     }
