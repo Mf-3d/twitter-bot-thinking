@@ -1,34 +1,30 @@
 
-.logo {	
-	width: 100%;
+.logo {
 	position: relative;
 }
-
-
-@media screen and ( min-width:479px ){
 
 	.backimg {
 	width: 100%;
 	height: 60%;
 	object-fit: cover;
 	filter: blur(4px);
-	margin: 0;
 }
 
-.logoimg {
-	top: 100px;
-	width: 50%;
-	left: 25%;
+.logo .logoimg{
+	top: 42%;
 	position: absolute;
+	left: 50%;
+	transform: translate(-50%, -50%);
 }
-.logo p {
+
+.logo .bot-p {
 	font-family: 'Press Start 2P', cursive;
 	font-size: 6.5em;
 	color: #FFF;
+	top: 72%;
 	position: absolute;
-	top: 350px;
-	transform:translateX(100%)
-}
+	left: 50%;
+	transform: translate(-50%, -50%);
 }
 
 
