@@ -56,7 +56,7 @@ async function start() {
 
   // ※このBotがツイートすることはほぼすべて自動生成です
   // `);
-  tweet();
+  
   replyCheck();
 }
 
@@ -112,7 +112,8 @@ function getData(pos = '名詞') {
 
 (function loop() {
   let Rand = Math.round(Math.random() * (18 - 7)) + 7;
-  setTimeout(function() {
+  
+  setTimeout(async function() {
 
     
     let now = new Date();
@@ -130,6 +131,14 @@ function getData(pos = '名詞') {
       twitter.tweet('🐱');
       loop();
       return;
+    }
+
+    if (mode === 5) {
+      let trendsOfJP = await twitter.getTrends();
+
+      for (const { trends, created_at } of trendsOfJP) {
+        twitter.tweet(`今${trends[0].name}がトレンドに入っているようだ🤔`);
+      }
     }
 
     tweet();
@@ -268,10 +277,9 @@ async function replyTweet (reply) {
 twitter.event.on('replied', async (reply) => {
   twitter.like(reply.data.id);
 
-  let queueNumber = await action.saveQueue('reply', {
+  await action.saveQueue('reply', {
     reply
-  });
-  
+  }); 
   console.log('リプされました', reply.data.id);
 });
 

@@ -105,5 +105,9 @@ module.exports = {
     console.log(number);    
     queues.queues.splice(number, 1);
     fs.writeFileSync(`${__dirname}/../queues.json`, JSON.stringify(queues, null, "\t"));
-  }
+  },
+
+  async getCharacter() {
+    return (JSON.parse(fs.readFileSync(`${__dirname}/../character.json`)));
+  } 
 }
