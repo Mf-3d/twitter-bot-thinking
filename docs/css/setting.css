@@ -4,8 +4,6 @@
 }
 
 	.backimg {
-	width: 100%;
-	height: 60%;
 	object-fit: cover;
 	filter: blur(4px);
 }
@@ -15,6 +13,7 @@
 	position: absolute;
 	left: 50%;
 	transform: translate(-50%, -50%);
+  
 }
 
 .logo .bot-p {
@@ -44,7 +43,7 @@ body {
 }
 
 #header-icon {
-  background: url('../image/logo/sikaku-transparent.png');
+  background: url('/docs/img/logo.png');
   background-position: center;
   background-size: contain;
   display: inline-block;
