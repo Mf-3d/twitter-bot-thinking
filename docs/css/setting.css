@@ -27,4 +27,204 @@
 	transform: translate(-50%, -50%);
 }
 
+@import url('https://fonts.googleapis.com/css2?family=Barlow:wght@400&family=Noto+Sans+JP:wght@300&display=swap');
+:root{
+  --content-width: 1000px;
+  --content-side-margin: auto;
+  --main-shadow: 0 0 5px 2px #0003;
+  --hover-shadow: 0 0 8px 2px #0005;
+  --main-radius: 5px;
+}
+
+body {
+  text-align: center;
+  margin: 0em;
+  font-family: 'Barlow', 'Noto Sans JP', sans-serif;
+  background-color: #f3f3f3;
+}
+
+#header-icon {
+  background: url('../image/logo/sikaku-transparent.png');
+  background-position: center;
+  background-size: contain;
+  display: inline-block;
+  height: 100%;
+  aspect-ratio: 1/1;
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+header {
+  display: inline-block;
+  z-index: 1;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  background-color: #ffffff80;
+  padding: 5px var(--content-side-margin);
+  box-sizing: border-box;
+  box-shadow: 0 0 15px 2px #00000048;
+  border-bottom: solid 1px #4e4e4e62;
+  vertical-align: middle;
+  height: 60px;
+  transition: height 0.2s ease-in-out;
+}
+header > div {
+  position: relative;
+  height: 100%;
+  width: var(--content-width);
+  max-width: calc(100% - 20px);
+  margin: 0 auto;
+}
+#header-buttons {
+  display: inline-block;
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translate(0, -50%);
+  text-align: left;
+}
+#header-buttons > * {
+  font-size: 18px;
+  color: #000000;
+  margin: 0 7px;
+}
+
+#slider {
+  text-align: center;
+  height: 30%;
+  margin: 0;
+  padding: 8em 20vw;
+  padding-top: calc(8em + 59px);
+  background: url('../image/logo-background.jpg');
+  background-size: cover;
+  color: rgb(235, 235, 235);
+}
+
+#slider.slider-general * {
+  text-align: left;
+  width: 100%;
+  color: #fff;
+}
+
+#slider.slider-general h2::after {
+  content: '';
+  display: block;
+  width: 100px;
+  height: 1px;
+  margin: 2px;
+  margin-left: 0;
+  background-color: #ddd;
+}
+
+#slider.slider-general h3 {
+  font-weight: 200;
+}
+
+a {
+  text-decoration: none;
+  color: #444;
+}
+
+main {
+  text-align: left;
+  width: var(--content-width);
+  margin: 5px var(--content-side-margin);
+  max-width: calc(100% - 20px);
+}
+
+.center_div {
+  text-align: center;
+}
+
+footer {
+  display: flex;
+  border-top: 1px solid #00000033;
+  background-color: #ffffff;
+  text-align: left;
+  padding: 10px 20vw;
+}
+
+.year-s {
+  display: flex;
+}
+
+footer * {
+  color: #000000;
+  font-weight: 500;
+}
+
+.footerColumn {
+  width: 100%;
+}
+
+.footerColumn .footer-bigger {
+  font-size: 17px;
+  margin-bottom: 5px;
+}
+
+.moreBtn {
+  display: inline-block;
+  position: relative;
+  border-radius: var(--main-radius);
+  color: #050505;
+  padding: 7px 10px;
+  margin: 10px 0;
+  left: 50%;
+  transform: translateX(-50%);
+  transition: all 0.6s ease;
+  box-shadow: var(--main-shadow);
+  background-color: #f5f5f5;
+}
+.moreBtn:hover {
+  box-shadow: var(--hover-shadow);
+}
+
+body {
+  animation: fadeIn 1s ease 0s 1 normal;
+  -webkit-animation: fadeIn 1s ease 0s 1 normal;
+}
+
+h2 {
+  letter-spacing: .1rem;
+  font-weight: 300;
+  font-size: 27px;
+  margin-bottom: 10px;
+}
+p{
+  margin: 2px 0;
+}
+
+@keyframes fadeIn {
+  0% {opacity: 0}
+  100% {opacity: 1}
+}
+
+@-webkit-keyframes fadeIn {
+  0% {opacity: 0}
+  100% {opacity: 1}
+}
+
+@keyframes fadeInAnime{
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@media (max-width: 900px) {
+  footer {
+    padding: 0 10px;
+  }
+}
+
 
