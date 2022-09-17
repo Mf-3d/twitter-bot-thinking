@@ -49,7 +49,7 @@ body {
 }
 
 #header-icon {
-  background: url(./img/logo.png);
+  background: url(../img/logo.png);
   background-position: center;
   background-size: contain;
   display: inline-block;
