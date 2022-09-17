@@ -2,8 +2,12 @@
 .logo {
 	position: relative;
 }
-
+@media screen {
+  
+}
 	.backimg {
+  width: 100%;
+  height: 50%;
 	object-fit: cover;
 	filter: blur(4px);
 }
@@ -13,18 +17,20 @@
 	position: absolute;
 	left: 50%;
 	transform: translate(-50%, -50%);
-  
+  width: 80%;;
 }
 
 .logo .bot-p {
 	font-family: 'Press Start 2P', cursive;
 	font-size: 6.5em;
-	color: #FFF;
-	top: 72%;
+	color: rgb(255, 255, 255);
+	top: 75%;
 	position: absolute;
 	left: 50%;
 	transform: translate(-50%, -50%);
-}
+  width: 100%;
+  text-shadow: 10px 10px 2px#777777
+  }
 
 @import url('https://fonts.googleapis.com/css2?family=Barlow:wght@400&family=Noto+Sans+JP:wght@300&display=swap');
 :root{
