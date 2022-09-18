@@ -1,4 +1,3 @@
-const request = require("request");
 const twitter = require("twitter-api-v2");
 const EventEmitter = require("events");
 const emitter = new EventEmitter();
