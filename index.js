@@ -73,6 +73,7 @@ async function start() {
 
 async function learning() {
   learn.learnTokens();
+  learn.learnTemplates();
 }
 
 async function tweet(replyTweet) {
@@ -140,14 +141,6 @@ function getData(pos = "名詞") {
       twitter.tweet("🐱");
       loop();
       return;
-    }
-
-    if (mode === 5) {
-      let trendsOfJP = await twitter.getTrends();
-
-      for (const { trends, created_at } of trendsOfJP) {
-        twitter.tweet(`今${trends[0].name}がトレンドに入っているようだ🤔`);
-      }
     }
 
     tweet();
