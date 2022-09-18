@@ -1,14 +1,15 @@
 
+body {
+  margin: -0.3em;
+}
+
 .logo {
 	position: relative;
-}
-@media screen {
-  
+  text-align: center;
 }
 	.backimg {
   width: 100%;
   height: 50%;
-	object-fit: cover;
 	filter: blur(4px);
 }
 
@@ -32,7 +33,6 @@
   text-shadow: 10px 10px 2px#777777
   }
 
-@import url('https://fonts.googleapis.com/css2?family=Barlow:wght@400&family=Noto+Sans+JP:wght@300&display=swap');
 :root{
   --content-width: 1000px;
   --content-side-margin: auto;
@@ -106,4 +106,23 @@ header > div {
   .logo .backimg {
     height: 35%;
   }
+}
+
+.footer {
+  display: flex;
+  justify-content: center; 
+}
+
+footer {
+  text-align: center;
+}
+
+.footer-p {
+  margin: 1em;
+}
+
+.year-s {
+  display: flex;
+  justify-content: center; 
+  line-height: 0.4;
 }
