@@ -86,6 +86,17 @@ module.exports = {
       return result;
     }
 
+    function wordGen(part, detail) {
+      const wordTemp = {
+        pos: part,
+        word: getData(part)[
+          Math.floor(Math.random() * (getData(part).length - 1 - 0) + 0)
+        ].text,
+        detail: detail,
+      };
+      return wordTemp;
+    }
+
     let particle_before_verb = [];
     let normal_particles = [];
 
@@ -103,70 +114,40 @@ module.exports = {
       word = [];
 
       template.forEach((part, i) => {
-        if (part === "助詞" && template[i + 1] === "動詞") {
-          word[word.length] = {
-            pos: part,
-            word: getData(part)[
-              Math.floor(Math.random() * (getData(part).length - 1 - 0) + 0)
-            ].text,
-            detail: "particle_before_verb",
-          };
-        } else if (part === "助詞" && template[i + 1] === "名詞") {
-          word[word.length] = {
-            pos: part,
-            word: getData(part)[
-              Math.floor(Math.random() * (getData(part).length - 1 - 0) + 0)
-            ].text,
-            detail: "normal_particle",
-          };
-        } else if (
-          part === "助動詞" &&
-          template[i + 1] === "記号" &&
-          template[i + 2]
-        ) {
-          word[word.length] = {
-            pos: part,
-            word: getData(part)[
-              Math.floor(Math.random() * (getData(part).length - 1 - 0) + 0)
-            ].text,
-            detail: part,
-          };
-        } else if (
-          part === "動詞" &&
-          template[i + 1] === "記号" &&
-          template[i + 2]
-        ) {
-          word[word.length] = {
-            pos: part,
-            word: getData(part)[
-              Math.floor(Math.random() * (getData(part).length - 1 - 0) + 0)
-            ].text,
-            detail: part,
-          };
-        } else if (part === "助動詞" && template[i + 1] === "記号") {
-          word[word.length] = {
-            pos: part,
-            word: getData(part)[
-              Math.floor(Math.random() * (getData(part).length - 1 - 0) + 0)
-            ].text,
-            detail: "clause",
-          };
-        } else if (part === "動詞" && template[i + 1] === "記号") {
-          word[word.length] = {
-            pos: part,
-            word: getData(part)[
-              Math.floor(Math.random() * (getData(part).length - 1 - 0) + 0)
-            ].text,
-            detail: "clause",
-          };
-        } else {
-          word[word.length] = {
-            pos: part,
-            word: getData(part)[
-              Math.floor(Math.random() * (getData(part).length - 1 - 0) + 0)
-            ].text,
-            detail: part,
-          };
+        switch (part) {
+          case "動詞":
+            if (template[i + 2]) {
+              word[word.length] = wordGen(part, part);
+            } else {
+              if (template[i + 1] === "記号") {
+                word[word.length] = wordGen(part, "clause");
+              } else {
+                word[word.length] = wordGen(part, part);
+              }
+            }
+            break;
+          case "助詞":
+            switch (template[i + 1]) {
+              case "動詞":
+                word[word.length] = wordGen(part, "particle_before_verb");
+                break;
+              case "名詞":
+                word[word.length] = wordGen(part, "normal_particle");
+                break;
+              default:
+                word[word.length] = wordGen(part, part);
+            }
+            break;
+          case "助動詞":
+            if (template[i + 2]) {
+              word[word.length] = wordGen(part, part);
+            } else {
+              if (template[i + 1] === "記号") {
+                word[word.length] = wordGen(part, "clause");
+              }
+            }
+          default:
+            word[word.length] = wordGen(part, part);
         }
 
         if (isIncludes(symbol, word[word.length - 1].word)) {
