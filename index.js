@@ -62,6 +62,7 @@ async function start() {
 
 async function learning() {
   learn.learnTokens();
+  learn.learnTemplates();
 }
 
 async function tweet(replyTweet) {
@@ -133,14 +134,6 @@ function getData(pos = '名詞') {
       return;
     }
 
-    if (mode === 5) {
-      let trendsOfJP = await twitter.getTrends();
-
-      for (const { trends, created_at } of trendsOfJP) {
-        twitter.tweet(`今${trends[0].name}がトレンドに入っているようだ🤔`);
-      }
-    }
-
     tweet();
     loop();
   }, Rand * 60000);
@@ -204,6 +197,8 @@ const job4 = schedule.scheduleJob('0 34 18 * * *', () => {
 });
 
 async function replyTweet (reply) {
+  reply.data.text
+  
   let favoRate = await action.getFavoRate(reply.data.author_id);
 
   // let isQuestion = await action.isQuestions(reply.data.text);
