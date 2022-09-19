@@ -5,7 +5,6 @@ body {
 
 .logo {
 	position: relative;
-  text-align: center;
 }
 	.backimg {
   width: 100%;
@@ -30,9 +29,25 @@ body {
 	left: 50%;
 	transform: translate(-50%, -50%);
   width: 100%;
+  text-align: center;
   text-shadow: 10px 10px 2px#777777
   }
 
+.logo .logo-p {
+  top: 90%;
+  position: absolute;
+  color: #8f8f8f;
+  left: 0.3%;
+}
+
+.logo .logo-p a {
+  text-decoration:none;
+  color: rgb(88, 113, 255);
+}
+
+.logo .logo-p a:hover {
+  color: #9c9c9c;
+}
 :root{
   --content-width: 1000px;
   --content-side-margin: auto;
@@ -106,6 +121,16 @@ header > div {
   .logo .backimg {
     height: 35%;
   }
+  .logo .logo-p {
+    top: 85%;
+    color: #8f8f8f;
+    left: 1.2%;
+    font-size: 0.8em;
+  }
+  .logo .logo-p a {
+    text-decoration:none;
+    color: rgb(88, 113, 255);
+  }
 }
 
 .footer {
@@ -122,11 +147,12 @@ footer {
 }
 
 .footer-p a {
-  color: #000;
+  color: rgb(0, 0, 0);
+  text-decoration:none;
 }
 
 .footer-p a:hover {
-  color: #fff;
+  color: rgb(0, 212, 11);
 }
 
 .year-s {
