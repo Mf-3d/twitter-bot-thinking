@@ -121,6 +121,14 @@ footer {
   margin: 1em;
 }
 
+.footer-p a {
+  color: #000;
+}
+
+.footer-p a:hover {
+  color: #fff;
+}
+
 .year-s {
   display: flex;
   justify-content: center; 
