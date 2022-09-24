@@ -131,19 +131,30 @@ header > div {
     text-decoration:none;
     color: rgb(88, 113, 255);
   }
+  .footer {
+    justify-content: center; 
+    display: flex;
+  }
+  .centerline {
+    display: none;
+  }
+  .footer-p {
+    margin: 0.5em;
+  }
 }
 
-.footer {
-  display: flex;
-  justify-content: center; 
+@media (min-width: 901px) {
+  .footer {
+    display: flex;
+    justify-content: center; 
+  }
+  .footer-p {
+    margin: 1em;
+  }
 }
 
 footer {
   text-align: center;
-}
-
-.footer-p {
-  margin: 1em;
 }
 
 .footer-p a {
