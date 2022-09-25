@@ -135,9 +135,6 @@ header > div {
     justify-content: center; 
     display: flex;
   }
-  .centerline {
-    display: none;
-  }
   .footer-p {
     margin: 0.5em;
   }
@@ -166,8 +163,26 @@ footer {
   color: rgb(0, 212, 11);
 }
 
-.year-s {
-  display: flex;
-  justify-content: center; 
-  line-height: 0.4;
+@media (min-width: 340px) {
+  .year-s {
+    display: flex;
+    justify-content: center; 
+    line-height: 0.4;
+  }
+  .footer-year {
+    display: flex;
+  }
+}
+
+@media (max-width: 339px) {
+  .footer-year {
+    display: flex;
+    justify-content: center; 
+  }
+}
+
+@media (max-width: 407px) {
+  .centerline {
+    display: none;
+  }
 }
