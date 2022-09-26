@@ -6,7 +6,7 @@ const fs = require("fs");
 
 module.exports = {
   async learnTokens() {
-    /** @type {{text: string}[]} */ let result = [];
+    /** @type {{text: string, pos: string}[]} */ let result = [];
 
     let timeline = await twitter.getUserTimeline("1441436363304300553");
     // let timeline = await twitter.getTimeline();
@@ -23,7 +23,7 @@ module.exports = {
 
     for (let i = 0; i < 2; i++) {
       await Client.get();
-      result[result.length] = Client.learn(result);
+      result[result.length] = Client.learn();
     }
 
     /** @type {{dict: {text: string}[]}} */

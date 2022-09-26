@@ -1,5 +1,3 @@
-const emotion = require("./emotion");
-const generate = require("./generate");
 const fs = require("fs");
 
 module.exports = {
@@ -66,7 +64,8 @@ module.exports = {
     const reg01 = /なんですか|でしょうか|なんやろ/g;
     const reg005 = /か/g;
 
-    let tokens = await generate.tokenize(text);
+    let tokens = await require("./generate").tokenize(text);
+    
     let probabilityOfQuestion = -0.01;
     tokens.forEach((token, i) => {
       if (token.surface_form === "？") probabilityOfQuestion += 0.05;
