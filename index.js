@@ -73,26 +73,12 @@ async function start() {
 
 async function learning() {
   learn.learnTokens();
-  learn.learnTemplates();
+  // learn.learnTemplates();
 }
 
 async function tweet(replyTweet) {
-  let useTemplateId = Math.floor(Math.random() * (9 - 0) + 0);
-  let noun = getData("名詞");
-  let verb = getData("動詞");
-  let particle = getData("助詞");
-  let auxiliary_verb = getData("助動詞");
-
-  // template
-  let target = Math.floor(Math.random() * (noun.length - 1 - 0) + 0);
-  let target2 = Math.floor(Math.random() * (particle.length - 1 - 0) + 0);
-  let target3 = Math.floor(Math.random() * (noun.length - 1 - 0) + 0);
-  let target4 = Math.floor(Math.random() * (verb.length - 1 - 0) + 0);
-  let target5 = Math.floor(Math.random() * (auxiliary_verb.length - 1 - 0) + 0);
-  let target6 = Math.floor(Math.random() * (auxiliary_verb.length - 1 - 0) + 0);
-
   let template = await generate.connect();
-
+  
   if (isIncludes(banned_word.banned, template)) {
     tweet(replyTweet);
     return;
@@ -249,9 +235,13 @@ async function replyTweet(reply) {
   //   return;
   // }
 
+  let isQuestion = await action.isQuestions(reply.data.text);
   let negaposi = await emotion.analysis(
     await generate.tokenize(reply.data.text)
   );
+
+  console.log(await generate.tokenize(reply.data.text));
+  
   negaposi += 0.02;
   console.log("ネガポジ値を取得しました");
   await action.updateFavoRate(negaposi, reply.data.author_id);
@@ -264,6 +254,10 @@ async function replyTweet(reply) {
   if (favoRate < 0) negaposi -= favoRate / 2;
   if (favoRate > 0) negaposi += favoRate;
 
+  if (isQuestion > 0.01) {
+    twitter.reply("...ほう？ ※疑問文と認識しました", reply.data.id);
+    return;
+  }
   if (
     negaposi < 0 &&
     negaposi > -0.05 &&

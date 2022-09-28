@@ -78,7 +78,8 @@ module.exports = {
       let result = [];
 
       dict.forEach((word) => {
-        if (word.pos !== pos) return;
+        if (!word) console.log(dict.indexOf(word))
+        //if (word.pos !== pos) return;
 
         result[result.length] = word;
       });
