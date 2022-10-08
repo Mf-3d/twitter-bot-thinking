@@ -1,6 +1,10 @@
-
 body {
   margin: -0.3em;
+}
+
+main {
+  margin-left: 20%;
+  margin-right: 20%;
 }
 
 .logo {
@@ -181,4 +185,14 @@ footer {
   .centerline {
     display: none;
   }
+}
+
+.about-head {
+  font-family: 'DotGothic16', sans-serif;
+  font-size: 2em;
+}
+
+.about .Explanatory {
+  font-family: 'DotGothic16', sans-serif;
+  font-size: 1.2em;
 }
