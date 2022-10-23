@@ -136,7 +136,7 @@ function getData(pos = "名詞") {
 
 (function loop2() {
   setTimeout(function () {
-    learning();
+    // learning();
     loop2();
 
     // const usersPaginated = await client.v2.tweetLikedBy('20', { asPaginator: true });

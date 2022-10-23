@@ -61,7 +61,7 @@ module.exports = {
   },
 
   async isQuestions(text) {
-    text = text.replace(/((h?)(ttps?:\/\/[a-zA-Z0-9.\-_@:/~?%&;=+#',()*!]+))/g, "");
+    text = text.replace(/((h?)(ttps?:\/\/[a-zA-Z0-9.\-_@:/~?%&;=+#',()*!]+))/g, "").replace(/@[0-9a-zA-Z_]{1,15}/g, "");
     
     const reg01 = /なんですか|でしょうか|なんやろ|どうして|なんで/g;
     const reg005 = /か|どれ|何|なに|もしかして/g;
@@ -134,7 +134,7 @@ module.exports = {
   },
 
   async getQuestionReply(questionText) {
-    questionText = questionText.replace(/((h?)(ttps?:\/\/[a-zA-Z0-9.\-_@:/~?%&;=+#',()*!]+))/g, "").replace("@thonkerBell", "").replace("@thonkerbell", "");
+    questionText = questionText.replace(/((h?)(ttps?:\/\/[a-zA-Z0-9.\-_@:/~?%&;=+#',()*!]+))/g, "").replace(/@[0-9a-zA-Z_]{1,15}/g, "");
     
     async function getData() {
       let tokens = await require("./generate").tokenize(questionText);
