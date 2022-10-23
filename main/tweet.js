@@ -1,4 +1,5 @@
 const twitter = require("twitter-api-v2");
+const Misskey = require('misskey-js');
 const stream = require("./stream");
 const EventEmitter = require("events");
 const emitter = new EventEmitter();
@@ -80,17 +81,13 @@ module.exports = {
   },
 
   async like(tweetId) {
-    let userId = (await client.v2.userByUsername("thinkingService")).data.id;
+    let userId = (await client.v2.userByUsername("thonkerBell")).data.id;
     await client.v2.like(userId, tweetId);
   },
 
   async updateBio(text) {
-    await client.v1.updateAccountProfile({ description: text });
-  },
-
-  async getTrends() {
-    return await client.v1.trendsAvailable();
-  },
+    // await client.v1.updateAccountProfile({ description: text });
+  }
 };
 
 stream.on(

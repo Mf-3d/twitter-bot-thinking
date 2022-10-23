@@ -166,7 +166,7 @@ async function replyCheck() {
 
     queues.queues.forEach(async (queue, queueNumber) => {
       if (queueNumber === 0) return;
-      let Rand2 = Math.round(Math.random() * (0.8 - 0.2)) + 0.2;
+      let Rand2 = Math.round(Math.random() * (0.4 - 0.2)) + 0.2;
       setTimeout(async function () {
         await action.deleteQueue(queueNumber);
         await replyTweet(queue.data.reply);
@@ -219,6 +219,22 @@ async function replyTweet(reply) {
     if (replyChance <= 0) return;
   }
 
+  if (reply.data.text.includes("$ learn part")) {
+    if (reply.data.author_id !== "1450976364429864963") return;
+
+    const params = reply.data.text.slice(reply.data.text.indexOf("$ learn part") + 13);
+
+    learn.addGroupOfParts(params.split(",")[0], params.split(",")[1]);
+    
+    twitter.reply(`
+    【パーツ学習😟】
+    パーツグループ: ${params.split(",")[0]}
+    パーツ: ${params.split(",")[1]}
+    
+    学習しました。`, reply.data.id);
+    return;
+  }
+
   // if (reply.data.text.includes('waryu')) {
   //   let word = ['w', 'a', 'r', 'y', 'u'];
   //   let rnd = [
@@ -241,6 +257,7 @@ async function replyTweet(reply) {
   );
 
   console.log(await generate.tokenize(reply.data.text));
+  console.log('質問かどうか:', isQuestion);
   
   negaposi += 0.02;
   console.log("ネガポジ値を取得しました");
@@ -254,10 +271,11 @@ async function replyTweet(reply) {
   if (favoRate < 0) negaposi -= favoRate / 2;
   if (favoRate > 0) negaposi += favoRate;
 
-  if (isQuestion > 0.01) {
-    twitter.reply("...ほう？ ※疑問文と認識しました", reply.data.id);
+  if (isQuestion > 0.07) {
+    twitter.reply(await action.getQuestionReply(reply.data.text), reply.data.id);
     return;
   }
+  
   if (
     negaposi < 0 &&
     negaposi > -0.05 &&

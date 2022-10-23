@@ -14,7 +14,7 @@ async function getStream() {
 
   // Add our rules
   await client.v2.updateStreamRules({
-    add: [{ value: "@thinkingService" }],
+    add: [{ value: "@thonkerBell" }],
   });
 
   const stream = await client.v2.searchStream({
@@ -30,7 +30,7 @@ async function getStream() {
       tweet.data.referenced_tweets?.some(
         (tweet) => tweet.type === "retweeted"
       ) ?? false;
-    if (isARt || tweet.data.author_id === "1542826170000977921") {
+    if (isARt || tweet.data.author_id === "1581541688279199744") {
       return;
     }
 

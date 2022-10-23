@@ -59,6 +59,8 @@ module.exports = {
     let result = [];
 
     dict.forEach((word) => {
+      if (!word) return;
+      if (typeof word !== "object") return;
       if (word.pos !== pos) return;
 
       result[result.length] = word;
@@ -78,8 +80,9 @@ module.exports = {
       let result = [];
 
       dict.forEach((word) => {
-        if (!word) console.log(dict.indexOf(word))
-        //if (word.pos !== pos) return;
+        if (!word) return;
+        if (typeof word !== "object") return;
+        if (word.pos !== pos) return;
 
         result[result.length] = word;
       });
@@ -139,13 +142,15 @@ module.exports = {
                 word[word.length] = wordGen(part, part);
             }
             break;
-          case "助動詞":
-            if (template[i + 2]) {
-              word[word.length] = wordGen(part, part);
+          case "助動詞": 
+            if (template[i + 1] === "記号") {
+              word[word.length] = wordGen(part, "clause");
+
+              break;
             } else {
-              if (template[i + 1] === "記号") {
-                word[word.length] = wordGen(part, "clause");
-              }
+              word[word.length] = wordGen(part, part);
+
+              break;
             }
           default:
             word[word.length] = wordGen(part, part);
@@ -203,63 +208,126 @@ module.exports = {
 
         if (word[i - 1]) {
           if (
-            word[i - 1].word[word[i - 1].length - 1] === "る" &&
+            word[i - 1].word[word[i - 1].word.length - 1] === "る" &&
             word[i - 1].pos === "動詞" &&
             wordData.word[0] === "だ" &&
             wordData.pos === "助動詞"
           )
             word[i].word = "たよ";
           if (
-            word[i - 1].word[word[i - 1].length - 1] === "寝" &&
+            word[i - 1].word[word[i - 1].word.length - 1] === "寝" &&
             word[i - 1].pos === "動詞" &&
             wordData.word[0] === "し" &&
             wordData.pos === "助動詞"
           )
-            word[i].word = "し";
+            wordData.word = "ろ";
           if (
-            word[i - 1].word[word[i - 1].length - 1] === "る" &&
+            word[i - 1].word[word[i - 1].word.length - 1] === "る" &&
             word[i - 1].pos === "動詞" &&
             wordData.word[0] === "ない" &&
             wordData.pos === "助動詞"
           )
             word[i].word = "んよ";
           if (
-            word[i - 1].word[word[i - 1].length - 1] === "い" &&
+            word[i - 1].word[word[i - 1].word.length - 1] === "い" &&
             word[i - 1].pos === "動詞" &&
             wordData.word[0] === "や" &&
             wordData.pos === "助動詞"
           )
             word[i].word = "てたんよ怖かった";
+          if (
+            word[i - 1].word[word[i - 1].word.length - 1] === "る" &&
+            word[i - 1].pos === "動詞" &&
+            wordData.word[0] === "や" &&
+            wordData.pos === "助動詞"
+          )
+            wordData.word = "んか？";
+          if (
+            word[i - 1].word[word[i - 1].word.length - 1] === "る" &&
+            word[i - 1].pos === "動詞" &&
+            wordData.word[0] === "な" &&
+            wordData.pos === "助動詞"
+          )
+            wordData.word = "んかな、";
+          if (
+            word[i - 1].word[word[i - 1].word.length - 1] === "え" &&
+            word[i - 1].pos === "動詞" &&
+            wordData.word[0] === "や" &&
+            wordData.pos === "助動詞"
+          )
+            wordData.word = "てるな";
+          if (
+            word[i - 1].word[word[i - 1].word.length - 1] === "え" &&
+            word[i - 1].pos === "動詞" &&
+            wordData.word[0] === "な" &&
+            wordData.pos === "助動詞"
+          )
+            wordData.word = "だよなぁ";
+          if (
+            word[i - 1].word[word[i - 1].word.length - 1] === "わ" &&
+            word[i - 1].pos === "動詞" &&
+            wordData.word[0] === "や" &&
+            wordData.pos === "助動詞"
+          )
+            word[i].word = "ないんやな";
           if (wordData.word === "て" && wordData.pos === "助詞")
             wordData.word = "ってな、";
           if (
-            word[i - 1].word[word[i - 1].length - 1] === "っ" &&
+            word[i - 1].word[word[i - 1].word.length - 1] === "っ" &&
             word[i - 1].pos === "動詞" &&
             wordData.word[0] === "な" &&
             wordData.pos === "助動詞"
           )
             wordData.word = "てたな";
           if (
-            word[i - 1].word[word[i - 1].length - 1] === "る" &&
+            word[i - 1].word[word[i - 1].word.length - 1] === "る" &&
             word[i - 1].pos === "動詞" &&
             wordData.word[0] === "た" &&
             wordData.pos === "助動詞"
           )
             wordData.word = "わほんまに、";
           if (
-            word[i - 1].word[word[i - 1].length - 1] === "っ" &&
+            word[i - 1].word[word[i - 1].word.length - 1] === "っ" &&
             word[i - 1].pos === "動詞" &&
             wordData.word[0] === "な" &&
             wordData.pos === "助動詞"
           )
             wordData.word = "てたな";
           if (
-            word[i - 1].word[word[i - 1].length - 1] === "さ" &&
+            word[i - 1].word[word[i - 1].word.length - 1] === "さ" &&
             word[i - 1].pos === "動詞" &&
             wordData.word[0] === "な" &&
             wordData.pos === "助動詞"
           )
             wordData.word = "";
+          if (
+            word[i - 1].word[word[i - 1].word.length - 1] === "い" &&
+            word[i - 1].pos === "動詞" &&
+            wordData.word[0] === "な" &&
+            wordData.pos === "助動詞"
+          )
+            wordData.word[0] = "た";
+          if (
+            word[i - 1].word[word[i - 1].word.length - 1] === "ら" &&
+            word[i - 1].pos === "動詞" &&
+            wordData.word[0] === "だ" &&
+            wordData.pos === "助動詞"
+          )
+            wordData.word = "ないか";
+          if (
+            word[i - 1].word[word[i - 1].word.length - 1] === "し" &&
+            word[i - 1].pos === "動詞" &&
+            wordData.word[0] === "だ" &&
+            wordData.pos === "助動詞"
+          )
+            wordData.word = "てたりする";
+          if (
+            word[i - 1].word[word[i - 1].word.length - 1] === "し" &&
+            word[i - 1].pos === "動詞" &&
+            wordData.word[0] === "や" &&
+            wordData.pos === "助動詞"
+          )
+            wordData.word = "たな";
         }
 
         if (word[i - 2]) {

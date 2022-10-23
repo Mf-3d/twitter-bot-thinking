@@ -23,7 +23,10 @@ module.exports = {
 
     for (let i = 0; i < 2; i++) {
       await Client.get();
-      result[result.length] = Client.learn();
+      let r = Client.learn();
+
+      if (!r) return;
+      result[result.length] = r;
     }
 
     /** @type {{dict: {text: string}[]}} */
@@ -38,4 +41,53 @@ module.exports = {
       JSON.stringify(saveData, null, "\t")
     );
   },
-};
+
+  addGroupOfParts: (groupName, part) => {
+    /** @type {
+       {
+         group: {
+           name: string;
+           similar: string[]
+         }[]
+       }
+     } 
+    */
+    let file = JSON.parse(fs.readFileSync(`${__dirname}/../groupOfParts.db`));
+
+    file.group.forEach(group => {
+      if (!group || typeof group !== "object") return;
+      
+      if (group.name === groupName) {
+        group.similar[group.similar.length] = part;
+      }
+    });
+
+    fs.writeFileSync(
+      `${__dirname}/../groupOfParts.db`,
+      JSON.stringify(file, null, "\t")
+    );
+  },
+
+  addReplyPattern: (text, replyText) => {
+    /** @type {
+       {
+         pattern: {
+           text: string;
+           replyText: string;
+         }[]
+       }
+     } 
+    */
+    let file = JSON.parse(fs.readFileSync(`${__dirname}/../replys.db`));
+
+    file.pattern[file.pattern.length] = {
+      text,
+      replyText
+    }
+
+    fs.writeFileSync(
+      `${__dirname}/../groupOfParts.db`,
+      JSON.stringify(file, null, "\t")
+    );
+  }
+}
