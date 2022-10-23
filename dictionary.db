@@ -91300,38 +91300,22 @@
 			"text": "メモリ",
 			"pos": "名詞"
 		},
-		null,
 		{
 			"text": "やすい",
 			"pos": "形容詞"
 		},
-		null,
-		null,
-		null,
-		null,
 		{
 			"text": "…",
 			"pos": "記号"
 		},
-		null,
-		null,
-		null,
-		null,
-		null,
-		null,
 		{
 			"text": "た",
 			"pos": "助動詞"
 		},
-		null,
-		null,
 		{
 			"text": "wip",
 			"pos": "名詞"
 		},
-		null,
-		null,
-		null,
 		{
 			"text": "解体",
 			"pos": "名詞"
@@ -91340,60 +91324,34 @@
 			"text": "…",
 			"pos": "記号"
 		},
-		null,
-		null,
-		null,
-		null,
 		{
 			"text": "",
 			"pos": "記号"
 		},
-		null,
-		null,
-		null,
-		null,
 		{
 			"text": "やすい",
 			"pos": "形容詞"
 		},
-		null,
 		{
 			"text": "OmniSharp",
 			"pos": "名詞"
 		},
-		null,
-		null,
-		null,
 		{
 			"text": "…",
 			"pos": "記号"
 		},
-		null,
 		{
 			"text": "",
 			"pos": "記号"
 		},
-		null,
-		null,
-		null,
 		{
 			"text": "db",
 			"pos": "名詞"
 		},
-		null,
-		null,
-		null,
-		null,
 		{
 			"text": "た",
 			"pos": "助動詞"
 		},
-		null,
-		null,
-		null,
-		null,
-		null,
-		null,
 		{
 			"text": "た",
 			"pos": "助動詞"
@@ -91402,14 +91360,10 @@
 			"text": "wip",
 			"pos": "名詞"
 		},
-		null,
-		null,
-		null,
 		{
 			"text": "た",
 			"pos": "助動詞"
 		},
-		null,
 		{
 			"text": "やすい",
 			"pos": "形容詞"
@@ -91418,9 +91372,6 @@
 			"text": "…",
 			"pos": "記号"
 		},
-		null,
-		null,
-		null,
 		{
 			"text": "db",
 			"pos": "名詞"
@@ -91429,20 +91380,10 @@
 			"text": "た",
 			"pos": "助動詞"
 		},
-		null,
-		null,
-		null,
-		null,
-		null,
-		null,
 		{
 			"text": "やすい",
 			"pos": "形容詞"
 		},
-		null,
-		null,
-		null,
-		null,
 		{
 			"text": "やすい",
 			"pos": "形容詞"
@@ -91451,31 +91392,22 @@
 			"text": "db",
 			"pos": "名詞"
 		},
-		null,
-		null,
-		null,
 		{
 			"text": "OmniSharp",
 			"pos": "名詞"
 		},
-		null,
-		null,
 		{
 			"text": "た",
 			"pos": "助動詞"
 		},
-		null,
 		{
 			"text": "db",
 			"pos": "名詞"
 		},
-		null,
-		null,
 		{
 			"text": "db",
 			"pos": "名詞"
 		},
-		null,
 		{
 			"text": "OmniSharp",
 			"pos": "名詞"
@@ -91484,11 +91416,6 @@
 			"text": "db",
 			"pos": "名詞"
 		},
-		null,
-		null,
-		null,
-		null,
-		null,
 		{
 			"text": "やすい",
 			"pos": "形容詞"
@@ -91497,20 +91424,10 @@
 			"text": "やすい",
 			"pos": "形容詞"
 		},
-		null,
-		null,
-		null,
-		null,
-		null,
-		null,
 		{
 			"text": "た",
 			"pos": "助動詞"
 		},
-		null,
-		null,
-		null,
-		null,
 		{
 			"text": "た",
 			"pos": "助動詞"
@@ -91523,7 +91440,6 @@
 			"text": "やすい",
 			"pos": "形容詞"
 		},
-		null,
 		{
 			"text": "うんこ",
 			"pos": "名詞"
@@ -91532,28 +91448,14 @@
 			"text": "うんこ",
 			"pos": "名詞"
 		},
-		null,
-		null,
-		null,
-		null,
-		null,
-		null,
-		null,
-		null,
 		{
 			"text": "た",
 			"pos": "助動詞"
 		},
-		null,
 		{
 			"text": "wip",
 			"pos": "名詞"
 		},
-		null,
-		null,
-		null,
-		null,
-		null,
 		{
 			"text": "うんこ",
 			"pos": "名詞"
@@ -91562,23 +91464,14 @@
 			"text": "db",
 			"pos": "名詞"
 		},
-		null,
-		null,
-		null,
-		null,
-		null,
 		{
 			"text": "db",
 			"pos": "名詞"
 		},
-		null,
-		null,
-		null,
 		{
 			"text": "OmniSharp",
 			"pos": "名詞"
 		},
-		null,
 		{
 			"text": "…",
 			"pos": "記号"
@@ -91587,20 +91480,14 @@
 			"text": "wip",
 			"pos": "名詞"
 		},
-		null,
-		null,
-		null,
 		{
 			"text": "…",
 			"pos": "記号"
 		},
-		null,
 		{
 			"text": "…",
 			"pos": "記号"
 		},
-		null,
-		null,
 		{
 			"text": "うんこ",
 			"pos": "名詞"
@@ -91609,106 +91496,42 @@
 			"text": "…",
 			"pos": "記号"
 		},
-		null,
-		null,
-		null,
-		null,
-		null,
-		null,
-		null,
 		{
 			"text": "た",
 			"pos": "助動詞"
 		},
-		null,
 		{
 			"text": "うんこ",
 			"pos": "名詞"
 		},
-		null,
-		null,
-		null,
-		null,
-		null,
 		{
 			"text": "た",
 			"pos": "助動詞"
 		},
-		null,
-		null,
 		{
 			"text": "うんこ",
 			"pos": "名詞"
 		},
-		null,
-		null,
-		null,
-		null,
-		null,
-		null,
-		null,
-		null,
-		null,
-		null,
 		{
 			"text": "た",
 			"pos": "助動詞"
 		},
-		null,
-		null,
-		null,
-		null,
-		null,
-		null,
 		{
 			"text": "カス",
 			"pos": "名詞"
 		},
-		null,
-		null,
-		null,
-		null,
-		null,
 		{
 			"text": "db",
 			"pos": "名詞"
 		},
-		null,
-		null,
-		null,
-		null,
-		null,
-		null,
-		null,
-		null,
 		{
 			"text": "…",
 			"pos": "記号"
 		},
-		null,
-		null,
-		null,
-		null,
-		null,
-		null,
-		null,
-		null,
-		null,
-		null,
 		{
 			"text": "うんこ",
 			"pos": "名詞"
 		},
-		null,
-		null,
-		null,
-		null,
-		null,
-		null,
-		null,
-		null,
-		null,
-		null,
 		{
 			"text": "…",
 			"pos": "記号"
@@ -91717,16 +91540,10 @@
 			"text": "カス",
 			"pos": "名詞"
 		},
-		null,
-		null,
-		null,
-		null,
 		{
 			"text": "た",
 			"pos": "助動詞"
 		},
-		null,
-		null,
 		{
 			"text": "カス",
 			"pos": "名詞"
