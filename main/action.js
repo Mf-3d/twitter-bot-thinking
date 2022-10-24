@@ -1,4 +1,5 @@
 const fs = require("fs");
+const { removeBackgroundFromImageUrl } = require("remove.bg");
 
 module.exports = {
   /**
@@ -133,8 +134,34 @@ module.exports = {
     return JSON.parse(fs.readFileSync(`${__dirname}/../character.json`));
   },
 
+  async isTwoChoiceQuestions(questionText) {
+    questionText = questionText.replace(/((https?:\/\/[a-zA-Z0-9.\-_@:/~?%&;=+#',()*!]+))/g, "").replace(/@[0-9a-zA-Z_]{1,15}/g, "");
+
+    const reg001 = /あれ|それ/g;
+    const reg005 = /これ|どれ|それか/g;
+    const reg010 = /それとも|どっち/g;
+    
+    const tokens = await require("./generate").tokenize(questionText);
+
+    let result = -0.01;
+    
+    tokens.forEach((token, i) => {
+      if (reg001.test(token.surface_form)) result += 0.01;
+      if (reg005.test(token.surface_form)) result += 0.05;
+      if (reg010.test(token.surface_form)) result += 0.1;
+
+      if (tokens[i + 1]) {
+        let t = tokens[i + 1];
+        
+        if (reg005.test(token.surface_form) && t === "なの") result += 0.01;
+      }
+    });
+
+    return result;
+  },
+
   async getQuestionReply(questionText) {
-    questionText = questionText.replace(/((h?)(ttps?:\/\/[a-zA-Z0-9.\-_@:/~?%&;=+#',()*!]+))/g, "").replace(/@[0-9a-zA-Z_]{1,15}/g, "");
+    questionText = questionText.replace(/((https?:\/\/[a-zA-Z0-9.\-_@:/~?%&;=+#',()*!]+))/g, "").replace(/@[0-9a-zA-Z_]{1,15}/g, "");
     
     async function getData() {
       let tokens = await require("./generate").tokenize(questionText);
@@ -146,14 +173,40 @@ module.exports = {
       return result;
     }
     
-    const part1 = (await getData())[Math.round(Math.random() * (((await getData()).length - 1) - 1)) + 1];
+    let part1 = (await getData())[Math.round(Math.random() * (((await getData()).length - 1) - 1)) + 1];
     const clause = ["やな", "やろ", "かな..."];
 
-    const reg = /これ|それ|あれ|どれ/g;
+    const reg = /これ|それ|あれ|どれ|何/g;
     if (!part1　|| reg.test(part1)) {
-      const yesOrNo = ["そう", "多分そう", "多分おかしい", "おかしい"];
-      part1 = yesOrNo[Math.round(Math.random() * ((yesOrNo.length - 1) - 1)) + 1];
+      if (await module.exports.isTwoChoiceQuestions(questionText) > 0.07) {
+        const yesOrNo = ["そう", "多分そう", "多分違う", "違う", "多分おかしい", "おかしい"];
+        part1 = yesOrNo[Math.round(Math.random() * ((yesOrNo.length - 1) - 1)) + 1];
+      } else {
+        part1 = "🤔";
+      }
     }
+    
     return `${part1}${clause[Math.round(Math.random() * ((clause.length - 1) - 1)) + 1]}`;
+  },
+
+  async getReplySuggest(text) {
+    text = text.replace(/((https?:\/\/[a-zA-Z0-9.\-_@:/~?%&;=+#',()*!]+))/g, "").replace(/@[0-9a-zA-Z_]{1,15}/g, "");
+    
+    const tokens = await require("./generate").tokenize(text);
+
+    let result = "";
+    
+    tokens.forEach((token, i) => {
+      if (token.basic_form === "おはよう") result = "おはよう";
+      if (token.basic_form === "こんにちは") result = "こんにちは";
+      if (token.basic_form === "こんばんは") result = "こんばんは";
+      if (token.basic_form === "おやすみ") result = "おやすみ";
+
+      if (token[i + 1]) {
+        let t = token[i + 1];
+        if (token.surface_form === "お" && t.surface_form === "は") result = "おはよ";
+        if (token.surface_form === "こん" && t.surface_form === "ちゃ") result = "こんにちは";
+      }
+    });
   }
 };

@@ -320,8 +320,15 @@ twitter.event.on("replied", async (reply) => {
   console.log("リプされました", reply.data.id);
 });
 
+app.use("/model", express.static(`${__dirname}/static/model`));
+app.use("/vmd", express.static(`${__dirname}/static/vmd`))
+
 app.get("/", (req, res) => {
-  res.send("Twitter account: @thinkingService");
+  res.send("?");
+});
+
+app.get("/api/v1/threejs/random", (req, res) => {
+  res.sendFile(`${__dirname}/static/threejs/random.html`)
 });
 
 app.listen(3000, () => {
