@@ -1,4 +1,5 @@
-# <span style="color: #2AFF00;">thinkingのbot(仮)</span>
+##### thinkingのbot(仮)の開発は終了しました。後継は[こちら](https://github.com/thinking-grp/thonk-kun)になります。
+# thinkingのbot(仮)
 
 単語を学習するボットです。
 
